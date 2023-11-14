@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/measureYourSelf">
+
+    <fragment
+        android:id="@+id/shoulderTypeBroad"
+        android:name="com.example.correctfit.UI.ShoulderTypeBroad"
+        android:label="fragment_shoulder_type_broad"
+        tools:layout="@layout/fragment_shoulder_type_broad" >
+        <action
+            android:id="@+id/action_shoulderTypeBroad_to_phaseOfWomanHood"
+            app:destination="@id/phaseOfWomanHood" />
+    </fragment>
+    <fragment
+        android:id="@+id/phaseOfWomanHood"
+        android:name="com.example.correctfit.UI.PhaseOfWomanHood"
+        android:label="fragment_phase_of_woman_hood"
+        tools:layout="@layout/fragment_phase_of_woman_hood" >
+        <action
+            android:id="@+id/action_phaseOfWomanHood_to_doYouKnowCurrentSize"
+            app:destination="@id/doYouKnowCurrentSize" />
+    </fragment>
+    <fragment
+        android:id="@+id/doYouKnowCurrentSize"
+        android:name="com.example.correctfit.UI.DoYouKnowCurrentSize"
+        android:label="fragment_do_you_know_current_size2"
+        tools:layout="@layout/fragment_do_you_know_current_size" />
+    <fragment
+        android:id="@+id/measureYourSelf"
+        android:name="com.example.correctfit.UI.MeasureYourSelf"
+        android:label="fragment_measure_your_self"
+        tools:layout="@layout/fragment_measure_your_self" />
+
+
+</navigation>

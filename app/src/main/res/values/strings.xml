@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CorrectFit</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="what_is_your_shoulder_type">What is your shoulder type?</string>
+    <string name="shoulderwaist_proportionate_waist">Shoulderwaist proportionate waist</string>
+    <string name="broad">BROAD</string>
+    <string name="initial_stage_of_bust_development_after_puberty">Initial stage of bust development after puberty</string>
+</resources>
