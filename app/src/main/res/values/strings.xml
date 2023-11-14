@@ -6,4 +6,8 @@
     <string name="shoulderwaist_proportionate_waist">Shoulderwaist proportionate waist</string>
     <string name="broad">BROAD</string>
     <string name="initial_stage_of_bust_development_after_puberty">Initial stage of bust development after puberty</string>
+    <string name="based_on_the_information_you_provided_n_we_recommend">Based on the information you provided,\n we recommend</string>
+    <string name="the_per_fit_size">THE PER-FIT SIZE</string>
+    <string name="bra_size">BRA SIZE</string>
+    <string name="panty_size">PANTY SIZE</string>
 </resources>

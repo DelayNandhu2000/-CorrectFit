@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/measureYourSelf">
+    app:startDestination="@id/finalResult2">
 
     <fragment
         android:id="@+id/shoulderTypeBroad"
@@ -27,12 +27,21 @@
         android:id="@+id/doYouKnowCurrentSize"
         android:name="com.example.correctfit.UI.DoYouKnowCurrentSize"
         android:label="fragment_do_you_know_current_size2"
-        tools:layout="@layout/fragment_do_you_know_current_size" />
+        tools:layout="@layout/fragment_do_you_know_current_size" >
+        <action
+            android:id="@+id/action_doYouKnowCurrentSize_to_measureYourSelf"
+            app:destination="@id/measureYourSelf" />
+    </fragment>
     <fragment
         android:id="@+id/measureYourSelf"
         android:name="com.example.correctfit.UI.MeasureYourSelf"
         android:label="fragment_measure_your_self"
         tools:layout="@layout/fragment_measure_your_self" />
+    <fragment
+        android:id="@+id/finalResult2"
+        android:name="com.example.correctfit.UI.FinalResult"
+        android:label="fragment_final_result"
+        tools:layout="@layout/fragment_final_result" />
 
 
 </navigation>
