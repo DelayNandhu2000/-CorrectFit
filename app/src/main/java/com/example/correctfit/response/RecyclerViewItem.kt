@@ -20,4 +20,9 @@ sealed class RecyclerViewItem{
         val image: Int ?= null,
         val Type: ArrayList<Type>
     ):RecyclerViewItem()
+
+
+
+
+
 }

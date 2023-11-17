@@ -1,10 +1,11 @@
-package com.example.correctfit
+package com.example.correctfit.RecycleViewMangement
 
 import android.graphics.Color
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.example.correctfit.R
 import com.example.correctfit.databinding.DoyouknowcurrentsizeBinding
 import com.example.correctfit.databinding.MeasureyourselfBinding
 import com.example.correctfit.databinding.PhaseofwomenhoodBinding
@@ -21,7 +22,7 @@ sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder
 
             inflate.BoxSubText.isVisible = type.default
             inflate.MainBoxSmallCircle.isVisible = type.default
-            inflate.womenhoodmainbox.setBackgroundResource(if(type.default)R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
+            inflate.womenhoodmainbox.setBackgroundResource(if(type.default) R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
             inflate.MainBoxTitle1.setTextColor(if (type.default) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
             inflate.BoxSubText.text = type.description
             inflate.MainBoxTitle1.text = type.type
@@ -31,17 +32,20 @@ sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder
         }
     }
 
-    class CurrentSizeViewHolder(private val inflate: DoyouknowcurrentsizeBinding) :RecyclerViewHolder(inflate){
+    class CurrentSizeViewHolder(private val inflate: DoyouknowcurrentsizeBinding) :
+        RecyclerViewHolder(inflate){
         fun binding(type: RecyclerViewItem.Type){
             inflate.MainBoxTitle1.text =type.type
-            inflate.currentSizeBox.setBackgroundResource(if(type.default)R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
+            inflate.currentSizeBox.setBackgroundResource(if(type.default) R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
+            inflate.MainBoxTitle1.setTextColor(if (type.default) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
             inflate.MainBoxSmallCircle.isVisible=type.default
             inflate.root.setOnClickListener {
                 itemClickListener?.invoke(it,type,adapterPosition)
             }
         }
     }
-    class MeasureYourSelfViewHolder(private val inflate: MeasureyourselfBinding):RecyclerViewHolder(inflate){
+    class MeasureYourSelfViewHolder(private val inflate: MeasureyourselfBinding):
+        RecyclerViewHolder(inflate){
         fun binding(type: RecyclerViewItem.Type){
             inflate.MeasureType.text=type.type
         }

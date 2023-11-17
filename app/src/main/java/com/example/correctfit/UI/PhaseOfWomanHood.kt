@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.correctfit.R
-import com.example.correctfit.RecyclerViewAdapter
+import com.example.correctfit.RecycleViewMangement.RecyclerViewAdapter
 //import com.example.correctfit.WomanHood
 import com.example.correctfit.databinding.FragmentPhaseOfWomanHoodBinding
 import com.example.correctfit.response.RecyclerViewItem
@@ -36,6 +36,7 @@ class PhaseOfWomanHood : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        current = arguments?.getInt("current")?:0
         recyclerViewAdaptor = RecyclerViewAdapter()
         recyclerViewAdaptor.listener = this
         listArray = arrayListOf(
@@ -87,28 +88,45 @@ class PhaseOfWomanHood : Fragment(){
         showWomanPageField(listArray[current])
         binding.womanButtonNext.setOnClickListener {
             if(current !=listSize-1){
-                current++
-                showWomanPageField(listArray[current])
-            }
-            else{
-                findNavController().navigate(R.id.action_phaseOfWomanHood_to_doYouKnowCurrentSize)
+                val selectedItem=getSelectedItem()
+                if(selectedItem !=null) {
+                    current++
+                    showWomanPageField(listArray[current])
+                }else{
+                    Toast.makeText(requireContext(),"please select your womanhood",Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                val selectedItem=getSelectedItem()
+                if(selectedItem !=null) {
+                    val bundle = Bundle()
+                    bundle.putString("page", "phase")
+                    findNavController().navigate(
+                        R.id.action_phaseOfWomanHood_to_doYouKnowCurrentSize,
+                        bundle
+                    )
+                }else{
+                    Toast.makeText(requireContext(),"please select your menstrual cycle",Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
         binding.womenButtonBack.setOnClickListener {
             if(current !=0){
                 current--
                 showWomanPageField(listArray[current])
+            } else {
+                val bundle =Bundle()
+                bundle.putInt("current",2)
+                findNavController().navigate(R.id.shoulderTypeBroad,bundle)
             }
-        }
-
-
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().popBackStack()
         }
 
 
     }
 
+    private fun getSelectedItem(): RecyclerViewItem.Type?  {
+        return listArray[current].Type.find { it.default }
+    }
 
     private fun showWomanPageField(data: RecyclerViewItem.Data) {
         binding.WomenHoodmainTiltle.text =data.Title

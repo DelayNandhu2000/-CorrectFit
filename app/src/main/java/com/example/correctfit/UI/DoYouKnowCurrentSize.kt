@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.correctfit.R
-import com.example.correctfit.RecyclerViewAdapter
+import com.example.correctfit.RecycleViewMangement.RecyclerViewAdapter
 import com.example.correctfit.databinding.FragmentDoYouKnowCurrentSizeBinding
 import com.example.correctfit.response.RecyclerViewItem
 
@@ -56,21 +56,15 @@ class DoYouKnowCurrentSize : Fragment() {
                 current++
                 showWomanPageField(listArray[current])
             }
-            else{
 
-            }
         }
         binding.womenButtonBack.setOnClickListener {
-            if(current !=0){
-                current--
-                showWomanPageField(listArray[current])
-            }
+            val bundle = Bundle()
+            bundle.putInt("current",1)
+            findNavController().navigate(R.id.phaseOfWomanHood,bundle)
         }
 
 
-        requireActivity().onBackPressedDispatcher.addCallback {
-            findNavController().popBackStack()
-        }
 
 
     }
@@ -91,7 +85,13 @@ class DoYouKnowCurrentSize : Fragment() {
                         it.default=false
                     }
                     listArray[current].Type[position].default=true
-                    recyclerViewAdapter.items=listArray[current].Type
+                    recyclerViewAdapter.items= listArray[current].Type
+                    if(arguments?.getString("page") == "phase"){
+                        when(position){
+                            0 -> {}
+                            1 -> findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_measureYourSelf)
+                        }
+                    }
                 }
                 else -> {}
             }

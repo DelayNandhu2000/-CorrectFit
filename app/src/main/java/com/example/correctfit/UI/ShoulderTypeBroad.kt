@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +17,8 @@ import com.example.correctfit.response.RecyclerViewItem
 
 
 class ShoulderTypeBroad : Fragment() {
-     private lateinit var newRecyclerView: RecyclerView
-     lateinit var binding : FragmentShoulderTypeBroadBinding
+    private lateinit var newRecyclerView: RecyclerView
+    lateinit var binding: FragmentShoulderTypeBroadBinding
     var current = 0
     var currentType = 0
 
@@ -26,13 +28,14 @@ class ShoulderTypeBroad : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentShoulderTypeBroadBinding.inflate(inflater)
-        return  binding.root
+        return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        current = arguments?.getInt("current") ?: 0
 
         val array = arrayListOf(
             RecyclerViewItem.Data(
@@ -41,20 +44,20 @@ class ShoulderTypeBroad : Fragment() {
                         "Shoulder broader than waist",
                         type = "BROAD",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_shoulder_broad
 
                     ),
                     RecyclerViewItem.Type(
                         "Shoulder proportionate to waist",
                         type = "REGULAR",
                         default = true,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_ragular
                     ),
                     RecyclerViewItem.Type(
                         "Shoulder smaller than waist",
                         type = "NARROW",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_narrow
                     )
                 )
             ),
@@ -64,27 +67,22 @@ class ShoulderTypeBroad : Fragment() {
                         "Breast with fullness both ath the top and bottom",
                         type = "APPLE",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_apple
                     ),
                     RecyclerViewItem.Type(
                         "Breast have more volume towards the bottom",
                         type = "PEAR",
                         default = true,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_flat
                     ),
                     RecyclerViewItem.Type(
                         "Breast are small less volume",
                         type = "LEMON",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.img_pear
                     ),
-                    RecyclerViewItem.Type(
-                        "Breast are small less",
-                        type = "BSW",
-                        default = false,
-                        image = R.drawable.broadshoulder
+
                     )
-                )
             ),
             RecyclerViewItem.Data(
                 "what is your Placement type", Type = arrayListOf(
@@ -92,33 +90,22 @@ class ShoulderTypeBroad : Fragment() {
                         "Breast have no space between them",
                         type = "CLOSE SET",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.close_set
                     ),
                     RecyclerViewItem.Type(
                         "Brest having one finger space between them",
                         type = "REGULAR",
                         default = true,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.regular
                     ),
                     RecyclerViewItem.Type(
                         "Brest having three finger space between them",
                         type = "WIDE SET",
                         default = false,
-                        image = R.drawable.broadshoulder
+                        image = R.drawable.wide_set
                     ),
-                    RecyclerViewItem.Type(
-                        "Shoulder smaller than waist",
-                        type = "WIDE",
-                        default = false,
-                        image = R.drawable.broadshoulder
-                    ),
-                    RecyclerViewItem.Type(
-                        "Shoulder smaller than waist",
-                        type = "SET",
-                        default = false,
-                        image = R.drawable.broadshoulder
+
                     )
-                )
             )
         )
 
@@ -128,15 +115,15 @@ class ShoulderTypeBroad : Fragment() {
         setType(array[current].Type)
 
         binding.appButtonNext.setOnClickListener {
-            if (current != listSize-1) {
+            if (current != listSize - 1) {
                 current++
                 currentType = 0
-                binding.seekBar.max= (array[current].Type.size-1)*10
-                binding.seekBar.progress=0
+                binding.seekBar.max = (array[current].Type.size - 1) * 10
+                binding.seekBar.progress = 0
                 showFiled(array[current])
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
-            }else {
+            } else {
                 findNavController().navigate(R.id.action_shoulderTypeBroad_to_phaseOfWomanHood)
             }
 
@@ -145,56 +132,61 @@ class ShoulderTypeBroad : Fragment() {
             if (current != 0) {
                 current--
                 currentType = 0
-                binding.seekBar.max= (array[current].Type.size-1)*10
-                binding.seekBar.progress =0
+                binding.seekBar.max = (array[current].Type.size - 1) * 10
+                binding.seekBar.progress = 0
                 showFiled(array[current])
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
             }
 
         }
-        binding.seekBar.setOnSeekBarChangeListener(object  :SeekBar.OnSeekBarChangeListener {
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 //                Log.e("array length",array[current].Type.size.toString())
 //                Log.e("array length",current.toString())
 
                 val typeSize = array[current].Type.size
 
-                if (typeSize == 3) {
-                    currentType = if (progress < 9) {
-                        0
-                    } else if (progress < 19) {
-                        1
-                    } else {
-                        2
+                when (typeSize) {
+                    3 -> {
+                        currentType = if (progress < 9) {
+                            0
+                        } else if (progress < 19) {
+                            1
+                        } else {
+                            2
+                        }
                     }
-                } else if (typeSize == 4) {
-                    currentType = if (progress < 5) {
-                        0
-                    } else if (progress < 8) {
-                        1
-                    } else if (progress < 16) {
-                        2
-                    } else {
-                        3
+
+                    4 -> {
+                        currentType = if (progress < 5) {
+                            0
+                        } else if (progress < 8) {
+                            1
+                        } else if (progress < 16) {
+                            2
+                        } else {
+                            3
+                        }
                     }
-                } else if (typeSize == 5) {
-                    currentType = if (progress < 5) {
-                        0
-                    } else if (progress < 20) {
-                        1
-                    } else if (progress < 30) {
-                        2
-                    } else if (progress < 40) {
-                        3
-                    } else {
-                        4
+
+                    5 -> {
+                        currentType = if (progress < 5) {
+                            0
+                        } else if (progress < 20) {
+                            1
+                        } else if (progress < 30) {
+                            2
+                        } else if (progress < 40) {
+                            3
+                        } else {
+                            4
+                        }
                     }
                 }
 
                 Log.e("array length 1", typeSize.toString())
                 showTypeChange(array[current].Type[currentType])
-
 
             }
 
@@ -211,9 +203,9 @@ class ShoulderTypeBroad : Fragment() {
     }
 
     private fun setType(type: List<RecyclerViewItem.Type>) {
-        binding.changeType1.text= type[0].type
-        binding.changeType2.text=type[1].type
-        binding.changeType3.text=type[2].type
+        binding.changeType1.text = type[0].type
+        binding.changeType2.text = type[1].type
+        binding.changeType3.text = type[2].type
     }
 
     private fun showTypeChange(type: RecyclerViewItem.Type) {
@@ -221,9 +213,30 @@ class ShoulderTypeBroad : Fragment() {
         binding.discriptionNames.text = type.description
         type.image?.let { binding.BroadShoulderImg.setImageResource(it) }
 
+        val typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
+        val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.ingter)
+        when (currentType) {
+            0 -> {
+                binding.changeType1.typeface = typeface
+                binding.changeType2.typeface = typeface1
+                binding.changeType3.typeface = typeface1
+            }
+            1 -> {
+                binding.changeType1.typeface = typeface1
+                binding.changeType2.typeface = typeface
+                binding.changeType3.typeface = typeface1
+            }
+            2 -> {
+                binding.changeType1.typeface = typeface1
+                binding.changeType2.typeface = typeface1
+                binding.changeType3.typeface = typeface
+            }
+        }
+
     }
 
     private fun showFiled(data: RecyclerViewItem.Data) {
-     binding.WhtShTyp.text =data.Title
+        binding.WhtShTyp.text = data.Title
+        binding.appButtonBack.isVisible = current != 0
     }
 }

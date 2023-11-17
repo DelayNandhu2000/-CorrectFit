@@ -1,10 +1,11 @@
-package com.example.correctfit
+package com.example.correctfit.RecycleViewMangement
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.correctfit.R
 import com.example.correctfit.UI.DoYouKnowCurrentSize
 import com.example.correctfit.UI.MeasureYourSelf
 import com.example.correctfit.UI.PhaseOfWomanHood
@@ -12,7 +13,6 @@ import com.example.correctfit.databinding.DoyouknowcurrentsizeBinding
 import com.example.correctfit.databinding.MeasureyourselfBinding
 import com.example.correctfit.databinding.PhaseofwomenhoodBinding
 import com.example.correctfit.response.RecyclerViewItem
-import java.util.ArrayList
 
 class RecyclerViewAdapter :RecyclerView.Adapter<RecyclerViewHolder>(){
     lateinit var listener: PhaseOfWomanHood
@@ -31,21 +31,21 @@ class RecyclerViewAdapter :RecyclerView.Adapter<RecyclerViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         return when(viewType){
-            R.layout.phaseofwomenhood->RecyclerViewHolder.WomanHoodViewHolder(
+            R.layout.phaseofwomenhood -> RecyclerViewHolder.WomanHoodViewHolder(
                 PhaseofwomenhoodBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
             )
-            R.layout.doyouknowcurrentsize->RecyclerViewHolder.CurrentSizeViewHolder(
+            R.layout.doyouknowcurrentsize -> RecyclerViewHolder.CurrentSizeViewHolder(
                 DoyouknowcurrentsizeBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
                 )
             )
-            R.layout.measureyourself->RecyclerViewHolder.MeasureYourSelfViewHolder(
+            R.layout.measureyourself -> RecyclerViewHolder.MeasureYourSelfViewHolder(
                 MeasureyourselfBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -69,7 +69,7 @@ class RecyclerViewAdapter :RecyclerView.Adapter<RecyclerViewHolder>(){
 
     override fun getItemViewType(position: Int): Int {
         return when(items[position]){
-            is RecyclerViewItem.Type -> if(label == "measure" )R.layout.measureyourself else if(label == "currentSize") R.layout.doyouknowcurrentsize else R.layout.phaseofwomenhood
+            is RecyclerViewItem.Type -> if(label == "measure" ) R.layout.measureyourself else if(label == "currentSize") R.layout.doyouknowcurrentsize else R.layout.phaseofwomenhood
 
             else -> {throw IllegalArgumentException("Invalid data Type")}
         }
