@@ -203,7 +203,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/ingter"
                 android:text="BROAD"
-                android:textColor="#222222"
+                android:textColor="#858585"
                 android:textSize="@dimen/_12ssp" />
 
             <TextView
@@ -213,7 +213,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="REGULAR"
-                android:textColor="#222222"
+                android:textColor="#858585"
                 android:textSize="@dimen/_12ssp" />
 
             <TextView
@@ -223,7 +223,7 @@
                 android:layout_weight="1"
                 android:gravity="end"
                 android:text="NARROW"
-                android:textColor="#222222"
+                android:textColor="#858585"
                 android:textSize="@dimen/_12ssp" />
 
         </LinearLayout>

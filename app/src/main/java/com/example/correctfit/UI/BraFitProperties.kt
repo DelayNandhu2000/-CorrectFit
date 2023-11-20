@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -247,44 +248,76 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
         binding.discriptionNames.text = type.description
         type.image?.let { binding.BroadShoulderImg.setImageResource(it) }
 
-        val typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
+        var typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
         val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.ingter)
+
+        val colorSelected = ContextCompat.getColor(requireContext(),R.color.ourBlack)
+        val colorUnSelected = ContextCompat.getColor(requireContext(),R.color.gray)
         when (currentType) {
             0 -> {
-                binding.changeType1.typeface = typeface
-                binding.changeType2.typeface = typeface1
-                binding.changeType3.typeface = typeface1
+                binding.changeType1.apply {
+                    typeface = typeface
+                    setTextColor(colorSelected)
+                }
+                binding.changeType2.apply {
+                    typeface = typeface1
+                    setTextColor(colorUnSelected)
+                }
+                binding.changeType3.apply {
+                    typeface = typeface1
+                    setTextColor(colorUnSelected)
+                }
 
                 binding.imageView.setImageResource(R.drawable.thump)
                 binding.imageView2.setImageResource(R.drawable.un_selected_thumb)
                 binding.imageView3.setImageResource(R.drawable.un_selected_thumb)
             }
             1 -> {
-                binding.changeType1.typeface = typeface1
-                binding.changeType2.typeface = typeface
-                binding.changeType3.typeface = typeface1
+                binding.changeType1.apply {
+                    typeface =typeface1
+                    setTextColor(colorUnSelected)
+                }
+                binding.changeType2.apply {
+                    typeface =typeface
+                    setTextColor(colorSelected)
+                }
+                binding.changeType3.apply {
+                    typeface =typeface1
+                    setTextColor(colorUnSelected)
+                }
 
                 binding.imageView.setImageResource(R.drawable.un_selected_thumb)
                 binding.imageView2.setImageResource(R.drawable.thump)
                 binding.imageView3.setImageResource(R.drawable.un_selected_thumb)
             }
             2 -> {
-                binding.changeType1.typeface = typeface1
-                binding.changeType2.typeface = typeface1
-                binding.changeType3.typeface = typeface
+                binding.changeType1.apply {
+                    typeface =typeface1
+                    setTextColor(colorUnSelected)
+                }
+                binding.changeType2.apply {
+                    typeface =typeface1
+                    setTextColor(colorUnSelected)
+                }
+                binding.changeType3.apply {
+                    typeface=typeface
+                    setTextColor(colorSelected)
+                }
 
                 binding.imageView.setImageResource(R.drawable.un_selected_thumb)
                 binding.imageView2.setImageResource(R.drawable.un_selected_thumb)
                 binding.imageView3.setImageResource(R.drawable.thump)
             }
         }
-
-    }
-
-
+        }
 
     private fun showFiled(data: RecyclerViewItem.Data) {
         binding.WhtShTyp.text = data.Title
     }
 
-}
+    }
+
+
+
+
+
