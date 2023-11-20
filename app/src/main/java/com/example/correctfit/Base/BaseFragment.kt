@@ -14,6 +14,7 @@ import com.example.correctfit.Retrofit.RemoteDataSource
 
 abstract class BaseFragment<VM: ViewModel,B: ViewBinding,R: AuthRepository> : Fragment() {
 
+
     protected lateinit var binding:B
     protected lateinit var viewModel:VM
 

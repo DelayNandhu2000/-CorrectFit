@@ -10,4 +10,8 @@
     <string name="the_per_fit_size">THE PER-FIT SIZE</string>
     <string name="bra_size">BRA SIZE</string>
     <string name="panty_size">PANTY SIZE</string>
+    <string name="which_brand_are_you_currently_buying_n_you_are_lingerie_from">Which brand are you currently buying \n you are lingerie from</string>
+    <string name="what_is_your_current_bra_size">What is your current Bra Size ?</string>
+    <string name="your_bra_size">Your Bra Size</string>
+    <string name="brasize">BraSize</string>
 </resources>

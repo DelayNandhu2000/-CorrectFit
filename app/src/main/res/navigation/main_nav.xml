@@ -31,6 +31,12 @@
         <action
             android:id="@+id/action_doYouKnowCurrentSize_to_measureYourSelf"
             app:destination="@id/measureYourSelf" />
+        <action
+            android:id="@+id/action_doYouKnowCurrentSize_to_currentBrand"
+            app:destination="@id/currentBrand" />
+        <action
+            android:id="@+id/action_doYouKnowCurrentSize_to_finalResult2"
+            app:destination="@id/finalResult2" />
     </fragment>
     <fragment
         android:id="@+id/measureYourSelf"
@@ -46,6 +52,33 @@
         android:name="com.example.correctfit.UI.FinalResult"
         android:label="fragment_final_result"
         tools:layout="@layout/fragment_final_result" />
+    <fragment
+        android:id="@+id/currentBrand"
+        android:name="com.example.correctfit.UI.CurrentBrand"
+        android:label="fragment_current_brand"
+        tools:layout="@layout/fragment_current_brand" >
+        <action
+            android:id="@+id/action_currentBrand_to_currrentSize"
+            app:destination="@id/currrentSize" />
+    </fragment>
+    <fragment
+        android:id="@+id/currrentSize"
+        android:name="com.example.correctfit.UI.CurrentSize"
+        android:label="fragment_currrent_size"
+        tools:layout="@layout/fragment_current_size" >
+        <action
+            android:id="@+id/action_currrentSize_to_braFitProperties"
+            app:destination="@id/braFitProperties" />
+    </fragment>
+    <fragment
+        android:id="@+id/braFitProperties"
+        android:name="com.example.correctfit.UI.BraFitProperties"
+        android:label="fragment_bra_fit_properties"
+        tools:layout="@layout/fragment_bra_fit_properties" >
+        <action
+            android:id="@+id/action_braFitProperties_to_doYouKnowCurrentSize"
+            app:destination="@id/doYouKnowCurrentSize" />
+    </fragment>
 
 
 </navigation>

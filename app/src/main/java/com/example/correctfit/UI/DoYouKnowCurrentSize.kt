@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +32,7 @@ class DoYouKnowCurrentSize : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        current = arguments?.getInt("current") ?: 0
         recyclerViewAdapter = RecyclerViewAdapter()
         recyclerViewAdapter.listen= this
         listArray= arrayListOf(
@@ -88,17 +90,25 @@ class DoYouKnowCurrentSize : Fragment() {
                     recyclerViewAdapter.items= listArray[current].Type
                     if(arguments?.getString("page") == "phase"){
                         when(position){
-                            0 -> {}
+                            0 -> {findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_currentBrand)}
                             1 -> findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_measureYourSelf)
+                        }
+                    } else if(current !=0){
+                        val bundle=Bundle()
+                        bundle.putInt("current",1)
+                        when(position){
+                            0->findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_measureYourSelf,bundle)
+                            1->findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_finalResult2)
                         }
                     }
                 }
-                else -> {}
+                else -> {
+                    }
+                }
             }
         }
     }
 
 
-}
 
 

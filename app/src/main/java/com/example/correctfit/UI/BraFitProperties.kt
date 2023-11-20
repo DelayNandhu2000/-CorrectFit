@@ -11,25 +11,31 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.example.correctfit.Base.BaseFragment
 import com.example.correctfit.R
+import com.example.correctfit.Repository.AuthRepository
+import com.example.correctfit.Retrofit.AuthInterface
+import com.example.correctfit.ViewModel.AuthViewModel
+import com.example.correctfit.databinding.FragmentBraFitPropertiesBinding
 import com.example.correctfit.databinding.FragmentShoulderTypeBroadBinding
 import com.example.correctfit.response.RecyclerViewItem
 
 
-class ShoulderTypeBroad : Fragment() {
+class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBinding,AuthRepository>() {
+    override fun getViewModel()=AuthViewModel::class.java
+    override fun getFragmentBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    )= FragmentBraFitPropertiesBinding.inflate(inflater)
+
+    override fun getFragmentRepository() = AuthRepository(remoteDataSource.buildApi(AuthInterface::class.java))
+
+
+
     private lateinit var newRecyclerView: RecyclerView
-    lateinit var binding: FragmentShoulderTypeBroadBinding
     var current = 0
     var currentType = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentShoulderTypeBroadBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,47 +45,70 @@ class ShoulderTypeBroad : Fragment() {
 
         val array = arrayListOf(
             RecyclerViewItem.Data(
-                "what is your Shulder type", Type = arrayListOf(
+                "How does the band fit?", Type = arrayListOf(
                     RecyclerViewItem.Type(
-                        "Shoulder broader than waist",
-                        type = "BROAD",
+                        "Bra band feels loose",
+                        type = "LOOSENESS",
                         default = false,
-                        image = R.drawable.img_shoulder_broad
+                        image = R.drawable.band_fit_back
 
                     ),
                     RecyclerViewItem.Type(
-                        "Shoulder proportionate to waist",
-                        type = "REGULAR",
+                        "Bra band fits perfectly",
+                        type = "FIT WELL",
                         default = true,
-                        image = R.drawable.img_ragular
+                        image = R.drawable.band_fit_well
                     ),
                     RecyclerViewItem.Type(
-                        "Shoulder smaller than waist",
-                        type = "NARROW",
+                        "Bra band feels tight",
+                        type = "TIGHTNESS",
                         default = false,
-                        image = R.drawable.img_narrow
+                        image = R.drawable.dig_in
                     )
                 )
             ),
             RecyclerViewItem.Data(
-                "what is your Bust type", Type = arrayListOf(
+                "Which hook does your bra fit?", Type = arrayListOf(
                     RecyclerViewItem.Type(
-                        "Breast with fullness both ath the top and bottom",
-                        type = "APPLE",
+                        "Bra fits in the last hook",
+                        type = "TIGHTEST",
                         default = false,
-                        image = R.drawable.img_apple
+                        image = R.drawable.img_hook_tight
+
                     ),
                     RecyclerViewItem.Type(
-                        "Breast have more volume towards the bottom",
-                        type = "PEAR",
+                        "Bra fit in the middle hook",
+                        type = "MIDDLE",
                         default = true,
-                        image = R.drawable.img_flat
+                        image = R.drawable.img_hook_middle
                     ),
                     RecyclerViewItem.Type(
-                        "Breast are small less volume",
-                        type = "LEMON",
+                        "Bra fit in the first hook",
+                        type = "LOOSEST",
                         default = false,
-                        image = R.drawable.img_pear
+                        image = R.drawable.img_hook_loose
+                    )
+                )
+            ),
+            RecyclerViewItem.Data(
+                "How does the cup fit?", Type = arrayListOf(
+                    RecyclerViewItem.Type(
+                        "Breast spill in the front and sides",
+                        type = "SPILLAGE",
+                        default = false,
+                        image = R.drawable.cup_front_spill
+                    ),
+                    RecyclerViewItem.Type(
+                        "Cup fit perfectly",
+                        type = "PERFECT",
+                        default = true,
+                        image = R.drawable.cup_perfect
+                    ),
+                    RecyclerViewItem.Type(
+                        "Gap between breast and bra cup",
+                        type = "GAPING",
+                        default = false,
+                        image = R.drawable.img_cup_gupping
                     ),
 
                     )
@@ -88,21 +117,21 @@ class ShoulderTypeBroad : Fragment() {
                 "what is your Placement type", Type = arrayListOf(
                     RecyclerViewItem.Type(
                         "Breast have no space between them",
-                        type = "CLOSE SET",
+                        type = "DIGS IN",
                         default = false,
-                        image = R.drawable.close_set
+                        image = R.drawable.strap_dig_in
                     ),
                     RecyclerViewItem.Type(
                         "Brest having one finger space between them",
-                        type = "REGULAR",
+                        type = "FITS WELL",
                         default = true,
-                        image = R.drawable.regular
+                        image = R.drawable.strap_fit
                     ),
                     RecyclerViewItem.Type(
                         "Brest having three finger space between them",
-                        type = "WIDE SET",
+                        type = "FALLS OFF",
                         default = false,
-                        image = R.drawable.wide_set
+                        image = R.drawable.strap_fall_off
                     ),
 
                     )
@@ -124,7 +153,9 @@ class ShoulderTypeBroad : Fragment() {
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
             } else {
-                findNavController().navigate(R.id.action_shoulderTypeBroad_to_phaseOfWomanHood)
+                  val bundle =Bundle()
+                  bundle.putInt("current",1)
+                findNavController().navigate(R.id.doYouKnowCurrentSize,bundle)
             }
 
         }
@@ -137,6 +168,8 @@ class ShoulderTypeBroad : Fragment() {
                 showFiled(array[current])
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
+            }else{
+                findNavController().popBackStack()
             }
 
         }
@@ -202,6 +235,7 @@ class ShoulderTypeBroad : Fragment() {
 
     }
 
+
     private fun setType(type: List<RecyclerViewItem.Type>) {
         binding.changeType1.text = type[0].type
         binding.changeType2.text = type[1].type
@@ -247,8 +281,10 @@ class ShoulderTypeBroad : Fragment() {
 
     }
 
+
+
     private fun showFiled(data: RecyclerViewItem.Data) {
         binding.WhtShTyp.text = data.Title
-        binding.appButtonBack.isVisible = current != 0
     }
+
 }

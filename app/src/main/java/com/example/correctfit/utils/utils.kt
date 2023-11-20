@@ -29,3 +29,8 @@ fun View.startAnimations(animation: Animation, onEndListener: () -> Unit) {
 
     this.startAnimation(animation)
 }
+
+var arrayBust = arrayListOf<String>()
+var arrayCup = arrayListOf("AA", "A", "B", "C", "DD", "D", "E", "F", "G","H","I","J")
+
+val sportArray = arrayListOf("XXL", "XXXL", "XXXXL","Free Size")

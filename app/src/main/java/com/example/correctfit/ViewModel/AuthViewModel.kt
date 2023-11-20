@@ -22,4 +22,29 @@ class AuthViewModel(private val repository:AuthRepository) :ViewModel(){
         }
     }
 
+
+    private val _brandResponse : MutableLiveData<Resource<RecyclerViewItem.BrandResponse>> = MutableLiveData()
+    val brandResponse : LiveData<Resource<RecyclerViewItem.BrandResponse>>
+        get() = _brandResponse
+
+
+    fun getBrands() {
+        _brandResponse.value = Resource.Loading
+
+        viewModelScope.launch {
+            _brandResponse.value = repository.getBrands()
+        }
+    }
+
+    private val _sizeResponse : MutableLiveData<Resource<RecyclerViewItem.SizeResponse>> = MutableLiveData()
+    val  sizeResponse : LiveData<Resource<RecyclerViewItem.SizeResponse>> get()= _sizeResponse
+
+    fun getTotalSize(){
+        _sizeResponse.value =Resource.Loading
+
+        viewModelScope.launch {
+            _sizeResponse.value =repository.getTotalSize()
+        }
+    }
+
 }

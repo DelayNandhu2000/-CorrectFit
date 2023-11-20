@@ -48,6 +48,7 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        current = arguments?.getInt("current") ?: 0
         recyclerViewAdaptor = RecyclerViewAdapter()
         recyclerViewAdaptor.lis = this
         effect = Effect(requireContext())

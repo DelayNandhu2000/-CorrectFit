@@ -1,5 +1,7 @@
 package com.example.correctfit.response
 
+import androidx.annotation.Keep
+
 sealed class RecyclerViewItem{
     data class TypeResponse(
         val Data: List<Data>,
@@ -23,6 +25,28 @@ sealed class RecyclerViewItem{
 
 
 
+    @Keep
+    class BrandResponse(
+        val `data`: Brand,
+        val message: String,
+        val status: Boolean
+    ):RecyclerViewItem()
 
+    @Keep
+    class Brand(
+        val brands: List<String>
+    ):RecyclerViewItem()
+
+    @Keep
+    class SizeResponse(
+        val `data`: SizeData,
+        val message: String,
+        val status: Boolean
+    ):RecyclerViewItem()
+
+    @Keep
+    class SizeData(
+        val size: List<String>
+    ):RecyclerViewItem()
 
 }
