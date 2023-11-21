@@ -8,8 +8,6 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.correctfit.Base.BaseFragment
@@ -18,11 +16,16 @@ import com.example.correctfit.Repository.AuthRepository
 import com.example.correctfit.Retrofit.AuthInterface
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentBraFitPropertiesBinding
-import com.example.correctfit.databinding.FragmentShoulderTypeBroadBinding
 import com.example.correctfit.response.RecyclerViewItem
+import com.example.correctfit.utils.characterList
+import com.example.correctfit.utils.digitList
 
 
 class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBinding,AuthRepository>() {
+
+    private var bandSelectedValue : String ?= null
+    private var hookSelectedValue : String ?= null
+    private var cupSelectedValue : String ?= null
     override fun getViewModel()=AuthViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -30,7 +33,6 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
     )= FragmentBraFitPropertiesBinding.inflate(inflater)
 
     override fun getFragmentRepository() = AuthRepository(remoteDataSource.buildApi(AuthInterface::class.java))
-
 
 
     private lateinit var newRecyclerView: RecyclerView
@@ -143,9 +145,76 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
         showFiled(array[current])
         showTypeChange(array[current].Type[currentType])
         setType(array[current].Type)
-
         binding.appButtonNext.setOnClickListener {
             if (current != listSize - 1) {
+                when(current){
+                    0->{
+                        bandSelectedValue = array[current].Type[currentType].toString()
+                    }
+                    1-> {
+                        hookSelectedValue = array[current].Type[currentType].toString()
+                        when(bandSelectedValue){
+                            "LOOSENESS"->{
+                                if(hookSelectedValue == "TIGHTEST"){
+                                    bustPosition?.let {
+                                        it-1
+                                    }
+
+                                    cupPosition?.let {
+                                        it+1
+                                    }
+                                }
+                                Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
+                            }
+                            "TIGHTNESS"->{
+                                if(hookSelectedValue == "LOOSEST"){
+                                    bustPosition?.let {
+                                        it+1
+                                    }
+
+                                    cupPosition?.let {
+                                        it-1
+                                    }
+
+                                    Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
+                                }
+                            }
+                        }
+                    }
+                  2-> {
+                      cupSelectedValue = array[current].Type[currentType].toString()
+                      if(bandSelectedValue == "LOOSENESS" && hookSelectedValue == "TIGHTEST"){
+
+                          when(cupSelectedValue){
+                              "SPILLAGE" -> {
+                                  cupPosition?.let {
+                                      it+1
+                                  }
+
+                                  Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
+                              }
+
+                              "GAPING"->{
+                                  cupPosition?.let {
+                                      it-1
+                                  }
+                              }
+
+                          }
+
+                      }
+//                      when(bandSelectedValue){
+//                          "LOOSENESS"->{
+//
+//                              if(array[current].Type[currentType].toString() == "TIGHTEST"){
+//                                  if(array[current].Type[])
+//                              }
+//                          }
+//                      }
+                  }
+                }
+                val bundle =Bundle()
+                bundle.putString("selectValue", bandSelectedValue.toString())
                 current++
                 currentType = 0
                 binding.seekBar.max = (array[current].Type.size - 1) * 10

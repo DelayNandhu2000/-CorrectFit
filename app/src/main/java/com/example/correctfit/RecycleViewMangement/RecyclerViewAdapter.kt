@@ -86,8 +86,7 @@ class RecyclerViewAdapter :RecyclerView.Adapter<RecyclerViewHolder>(){
             is RecyclerViewHolder.CurrentSizeViewHolder ->holder.binding(items[position] as RecyclerViewItem.Type)
             is RecyclerViewHolder.MeasureYourSelfViewHolder -> holder.binding(items[position] as RecyclerViewItem.Type)
             is RecyclerViewHolder.BindBrandViewHolder -> holder.binding(item[position])
-            is RecyclerViewHolder.BindBraViewHolder -> holder.binding(item[position])
-
+            is RecyclerViewHolder.BindBraViewHolder -> if(label == "bust") holder.binding(item[position]) else holder.bindingCup(item[position])
         }
     }
 

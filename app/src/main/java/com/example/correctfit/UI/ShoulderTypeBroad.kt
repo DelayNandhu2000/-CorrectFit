@@ -67,13 +67,13 @@ class ShoulderTypeBroad : Fragment() {
                     RecyclerViewItem.Type(
                         "Breast with fullness both ath the top and bottom",
                         type = "APPLE",
-                        default = false,
+                        default = true,
                         image = R.drawable.img_apple
                     ),
                     RecyclerViewItem.Type(
                         "Breast have more volume towards the bottom",
                         type = "PEAR",
-                        default = true,
+                        default = false,
                         image = R.drawable.img_flat
                     ),
                     RecyclerViewItem.Type(
@@ -96,19 +96,21 @@ class ShoulderTypeBroad : Fragment() {
                     RecyclerViewItem.Type(
                         "Brest having one finger space between them",
                         type = "REGULAR",
-                        default = true,
+                        default = false,
                         image = R.drawable.regular
                     ),
                     RecyclerViewItem.Type(
                         "Brest having three finger space between them",
                         type = "WIDE SET",
-                        default = false,
+                        default = true,
                         image = R.drawable.wide_set
                     ),
 
                     )
             )
         )
+        currentType = array[current].Type.indexOfFirst { it.default}
+        binding.seekBar.progress = if(currentType ==0) 0 else 10
 
         val listSize = array.size
         showFiled(array[current])
@@ -118,7 +120,7 @@ class ShoulderTypeBroad : Fragment() {
         binding.appButtonNext.setOnClickListener {
             if (current != listSize - 1) {
                 current++
-                currentType = 0
+                currentType = array[current].Type.indexOfFirst { it.default}
                 binding.seekBar.max = (array[current].Type.size - 1) * 10
                 binding.seekBar.progress = 0
                 showFiled(array[current])

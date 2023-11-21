@@ -69,9 +69,8 @@ class CurrentBrand : BaseFragment<AuthViewModel,FragmentCurrentBrandBinding,Auth
 
     private fun itemClickListener() {
         recyclerViewAdaptor.itemClickListener = { view, item, position ->
-
             recyclerViewAdaptor.item = data?:emptyList()
-            Toast.makeText(requireContext(), item.toString(), Toast.LENGTH_SHORT).show()
+//            Toast.makeText(requireContext(), item.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 

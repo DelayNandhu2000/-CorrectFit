@@ -133,6 +133,10 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
                 }
             }
         }
+        if(current !=0){
+            binding.womenButtonBack.isVisible=false
+
+        }
         binding.womenButtonBack.setOnClickListener {
             if(current !=0){
                 current--

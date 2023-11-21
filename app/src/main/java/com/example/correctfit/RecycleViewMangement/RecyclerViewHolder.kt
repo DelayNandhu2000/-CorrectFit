@@ -20,9 +20,12 @@ var lastSelectedName:String ?=null
 
 var currentSelected = -1
 var previousSelected = -1
+var currentSelected1 = -1
+var previousSelected1 = -1
 
+var currentSelectedCup = -1
+var previousSelectedCup = -1
 sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root) {
-
 
     var itemClickListener :((view: View, item:Any, position:Int)->Unit)? = null
 
@@ -68,19 +71,18 @@ sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder
 
         fun binding(item: String){
             inflate.brand.text = item
-            inflate.root.setBackgroundResource(if(currentSelected==adapterPosition) R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
-            inflate.brand.setTextColor(if(currentSelected==adapterPosition) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
+            inflate.root.setBackgroundResource(if(currentSelected1==adapterPosition) R.drawable.womanhoodboxselectedstyle else R.drawable.womenhoodboxnotselectedstyle)
+            inflate.brand.setTextColor(if(currentSelected1==adapterPosition) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
 
             inflate.root.setOnClickListener {
-                currentSelected=adapterPosition
-                if(previousSelected != currentSelected){
-                    recyclerViewAdapter.notifyItemChanged(previousSelected)
-                    previousSelected= currentSelected
+                currentSelected1=adapterPosition
+                if(previousSelected1 != currentSelected1){
+                    recyclerViewAdapter.notifyItemChanged(previousSelected1)
+                    previousSelected1= currentSelected1
                 }
 
-                recyclerViewAdapter.notifyItemChanged(currentSelected)
+                recyclerViewAdapter.notifyItemChanged(currentSelected1)
                itemClickListener?.invoke(it,item,adapterPosition)
-              recyclerViewAdapter.notifyItemChanged(adapterPosition)
             }
         }
 
@@ -93,22 +95,47 @@ sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder
 
         fun binding(item: String){
             inflate.BraSize1.text =  item
-
+            inflate.root.setBackgroundResource(if(currentSelected==adapterPosition) R.drawable.item_cup_background_selected else R.drawable.item_cup_background)
+            inflate.BraSize1.setTextColor(if(currentSelected==adapterPosition) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
 
             inflate.root.setOnClickListener {
+
+                recyclerViewAdapter.notifyItemChanged(adapterPosition)
                 currentSelected=adapterPosition
                 if(previousSelected != currentSelected){
-                    recyclerViewAdapter.notifyItemChanged(adapterPosition)
+                    recyclerViewAdapter.notifyItemChanged(previousSelected)
                     previousSelected= currentSelected
                 }
                 recyclerViewAdapter.notifyItemChanged(currentSelected)
 
                 itemClickListener?.invoke(it,item,adapterPosition)
+
+            }
+
+        }
+
+        fun bindingCup(item: String){
+            inflate.BraSize1.text =  item
+            inflate.root.setBackgroundResource(if(currentSelectedCup==adapterPosition) R.drawable.item_cup_background_selected else R.drawable.item_cup_background)
+            inflate.BraSize1.setTextColor(if(currentSelectedCup==adapterPosition) Color.parseColor("#FF566A") else Color.parseColor("#222222"))
+
+            inflate.root.setOnClickListener {
+
                 recyclerViewAdapter.notifyItemChanged(adapterPosition)
+                currentSelectedCup=adapterPosition
+                if(previousSelectedCup != currentSelectedCup){
+                    recyclerViewAdapter.notifyItemChanged(previousSelectedCup)
+                    previousSelectedCup= currentSelectedCup
+                }
+                recyclerViewAdapter.notifyItemChanged(currentSelectedCup)
+
+                itemClickListener?.invoke(it,item,adapterPosition)
+
             }
 
         }
     }
+
 
 }
 
