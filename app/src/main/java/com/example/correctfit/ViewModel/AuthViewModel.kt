@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.correctfit.Repository.AuthRepository
 import com.example.correctfit.Retrofit.RequestClass
 import com.example.correctfit.Retrofit.Resource
+import com.example.correctfit.model.UserData
 import com.example.correctfit.response.FinalResponse
+import com.example.correctfit.response.InsertResponse
 import com.example.correctfit.response.RecyclerViewItem
 import kotlinx.coroutines.launch
 
@@ -45,6 +47,16 @@ class AuthViewModel(private val repository:AuthRepository) :ViewModel(){
         viewModelScope.launch {
             _sizeResponse.value =repository.getTotalSize()
         }
+    }
+
+    private val _addUserResponse :MutableLiveData<Resource<InsertResponse>> = MutableLiveData()
+    val addUserResponse :LiveData<Resource<InsertResponse>> get() =_addUserResponse
+
+    suspend fun addUser(userData: UserData){
+        val map = HashMap<String,String>()
+        map["Apikey"] = "Djh1ubi0sE9x3hLkqwVTfp1ru"
+        _addUserResponse.value =Resource.Loading
+        _addUserResponse.value=repository.addUser(map,userData)
     }
 
 }

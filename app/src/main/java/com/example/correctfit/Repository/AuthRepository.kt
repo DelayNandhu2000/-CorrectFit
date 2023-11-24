@@ -2,7 +2,7 @@ package com.example.correctfit.Repository
 
 import com.example.correctfit.Retrofit.AuthInterface
 import com.example.correctfit.Retrofit.RequestClass
-import retrofit2.http.Header
+import com.example.correctfit.model.UserData
 
 class AuthRepository(private  val apiService: AuthInterface):SafeApiCall{
     suspend fun getSizes(header: Map<String,String>,value : RequestClass.MeasureRequestClass)=safeApiCall {
@@ -16,8 +16,8 @@ class AuthRepository(private  val apiService: AuthInterface):SafeApiCall{
     suspend fun getTotalSize()=safeApiCall {
         apiService.getTotalSize()
     }
-//
-//    suspend fun addUser(header:Map<String,String> ,braClass: BraClass)= safeApiCall{
-//        //apiService.insert(header,braClass)
-//    }
+    suspend fun addUser(header:Map<String,String> ,userData: UserData)= safeApiCall{
+        apiService.insert(header,userData)
+    }
+
 }

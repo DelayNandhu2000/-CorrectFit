@@ -12,19 +12,15 @@ import com.example.correctfit.databinding.ItemBrandBinding
 import com.example.correctfit.databinding.MeasureyourselfBinding
 import com.example.correctfit.databinding.PhaseofwomenhoodBinding
 import com.example.correctfit.response.RecyclerViewItem
+import com.example.correctfit.utils.currentSelected
+import com.example.correctfit.utils.currentSelected1
+import com.example.correctfit.utils.currentSelectedCup
+import com.example.correctfit.utils.previousSelected
+import com.example.correctfit.utils.previousSelected1
+import com.example.correctfit.utils.previousSelectedCup
+import com.example.correctfit.utils.userData
 
 
-
-var selectedName:String ?=null
-var lastSelectedName:String ?=null
-
-var currentSelected = -1
-var previousSelected = -1
-var currentSelected1 = -1
-var previousSelected1 = -1
-
-var currentSelectedCup = -1
-var previousSelectedCup = -1
 sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder(binding.root) {
 
     var itemClickListener :((view: View, item:Any, position:Int)->Unit)? = null
@@ -79,6 +75,7 @@ sealed class RecyclerViewHolder(binding : ViewBinding) : RecyclerView.ViewHolder
                 if(previousSelected1 != currentSelected1){
                     recyclerViewAdapter.notifyItemChanged(previousSelected1)
                     previousSelected1= currentSelected1
+                    userData.oldBrand= currentSelected1.toString()
                 }
 
                 recyclerViewAdapter.notifyItemChanged(currentSelected1)

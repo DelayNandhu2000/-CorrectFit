@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.correctfit.Base.BaseFragment
@@ -20,10 +18,15 @@ import com.example.correctfit.Retrofit.RequestClass
 import com.example.correctfit.Retrofit.Resource
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentMeasureYourSelfBinding
-import com.example.correctfit.response.FinalResponse
 import com.example.correctfit.response.RecyclerViewItem
 import com.example.correctfit.utils.Effect
+import com.example.correctfit.utils.bustPosition
+import com.example.correctfit.utils.characterList
+import com.example.correctfit.utils.cupPosition
+import com.example.correctfit.utils.digitList
 import com.example.correctfit.utils.startAnimations
+import com.example.correctfit.utils.userData
+
 
 class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBinding, AuthRepository>() {
 
@@ -74,6 +77,12 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
             )
         )
 
+        if(current!=0){
+            binding.womenButtonBack.isVisible=false
+        }
+        userData.underBust = binding.BandEG.text.toString()
+        userData.overBust=binding.BustEG.text.toString()
+        userData.hip =binding.hip.text.toString()
         val listSize = listArray.size
         showFiled(listArray[current])
         binding.womanButtonNext.setOnClickListener {
@@ -100,9 +109,14 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
                         }
                 }else if((binding.BandEG.text.trim().toString().toInt())==(binding.BustEG.text.trim().toString().toInt())){
                        binding.BustEG.startAnimations(effect!!.shake){
-                           binding.BustError.text="The measurement is incorrect.." +("\uD83D\uDE01")
+                           binding.BustError.text="Measurement is incorrect.." +("\uD83D\uDE01")
                            binding.BustError.isVisible=true
                        }
+                }else if((binding.BandEG.text.trim().toString().toInt())>(binding.BustEG.text.trim().toString().toInt())){
+                    binding.BustEG.startAnimations(effect!!.shake){
+                          binding.BustError.text="Measurement is incorrect.." +("\uD83D\uDE01")
+                          binding.BustError.isVisible=true
+                    }
                 }
                     else {
                     current++
@@ -122,32 +136,42 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
                 }
                 }
                 else {
-                    val objectRef = RequestClass.MeasureRequestClass(
-                        binding.BandEG.text.trim().toString(),
-                        binding.BustEG.text.trim().toString(),
-                        binding.hip.text.trim().toString()
-                    )
-                    val map=HashMap<String,String>()
-                    map["apikey"] ="qIAygMyilfNeYfgnkNtglD2h"
-                    viewModel.measureSize(map,objectRef)
+                    invokeGetSizeApi()
                 }
             }
-        }
-        if(current !=0){
-            binding.womenButtonBack.isVisible=false
-
         }
         binding.womenButtonBack.setOnClickListener {
             if(current !=0){
                 current--
                 showFiled(listArray[current])
             }
-//            else{
-//                findNavController().navigate(R.id.doYouKnowCurrentSize)
-//            }
         }
+
+        //Skip Action
+            binding.SkipButton.setOnClickListener {
+                if(arguments?.getInt("current")==null){
+                    invokeGetSizeApi()
+                } else {
+                    val bundle = Bundle()
+                    bundle.putString("braSize",arguments?.getString("braSize"))
+                    findNavController().navigate(R.id.action_measureYourSelf_to_finalResult2, bundle)
+                }
+
+            }
        observers()
     }
+
+    private fun invokeGetSizeApi() {
+        val objectRef = RequestClass.MeasureRequestClass(
+            binding.BandEG.text.trim().toString(),
+            binding.BustEG.text.trim().toString(),
+            binding.hip.text.trim().toString().ifEmpty { "" }
+        )
+        val map = HashMap<String, String>()
+        map["apikey"] = "qIAygMyilfNeYfgnkNtglD2h"
+        viewModel.measureSize(map, objectRef)
+    }
+
     private fun showFiled(data: RecyclerViewItem.Data) {
         binding.womenButtonBack.isVisible= current !=0
         binding.Layout.isVisible = current == 0
@@ -168,20 +192,23 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun observers(){
         viewModel.measureResponse.observe(viewLifecycleOwner){result->
             (requireActivity() as MainActivity).binding.progress.isVisible = result is Resource.Loading
             when (result){
                    is Resource.Success ->{
-                       if(result.value.status) {
+                       if(result.value.message=="api hit") {
                            val data = result.value.data
                            val bundle = Bundle()
-                           bundle.putString("braSize",data.bra)
-                           bundle.putString("sisterSize",if(data.sisterSize=="")"No" else data.sisterSize)
-                           bundle.putString("pantySize",data.panty)
-                           findNavController().navigate(R.id.action_measureYourSelf_to_finalResult2,bundle)
+                           val braSize = if(arguments?.getInt("current")==null) data.bra else digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!]
 
-                       } else {
+                           bundle.putString("braSize",braSize)
+                           if(data.panty != "")
+                           bundle.putString("pantySize", data.panty)
+
+                           findNavController().navigate(R.id.action_measureYourSelf_to_finalResult2, bundle)
+                       }else {
                            Toast.makeText(requireContext(), result.value.message, Toast.LENGTH_SHORT).show()
                        }
                    }
@@ -192,10 +219,6 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
 
 
             }
-
-
-
-
 
         }
     }

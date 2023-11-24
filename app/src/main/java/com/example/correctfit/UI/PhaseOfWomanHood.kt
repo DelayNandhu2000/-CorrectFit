@@ -1,25 +1,21 @@
 package com.example.correctfit.UI
 
+//import com.example.correctfit.WomanHood
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.correctfit.R
 import com.example.correctfit.RecycleViewMangement.RecyclerViewAdapter
-//import com.example.correctfit.WomanHood
 import com.example.correctfit.databinding.FragmentPhaseOfWomanHoodBinding
 import com.example.correctfit.response.RecyclerViewItem
-
+import com.example.correctfit.utils.userData
 
 class PhaseOfWomanHood : Fragment(){
-      private lateinit var newRecyclerView: RecyclerView
-      private lateinit var newArrayList: ArrayList<RecyclerViewItem.Type>
       private lateinit var listArray: ArrayList<RecyclerViewItem.Data>
       private lateinit var binding: FragmentPhaseOfWomanHoodBinding
       private var recyclerViewAdaptor = RecyclerViewAdapter()
@@ -88,7 +84,8 @@ class PhaseOfWomanHood : Fragment(){
         showWomanPageField(listArray[current])
         binding.womanButtonNext.setOnClickListener {
             if(current !=listSize-1){
-                val selectedItem=getSelectedItem()
+                val selectedItem = getSelectedItem()
+                userData.phaseOfWomanHood = selectedItem.toString()
                 if(selectedItem !=null) {
                     current++
                     showWomanPageField(listArray[current])
@@ -97,6 +94,7 @@ class PhaseOfWomanHood : Fragment(){
                 }
             }else{
                 val selectedItem=getSelectedItem()
+                userData.menstrualCycle = selectedItem.toString()
                 if(selectedItem !=null) {
                     val bundle = Bundle()
                     bundle.putString("page", "phase")
@@ -116,7 +114,7 @@ class PhaseOfWomanHood : Fragment(){
                 showWomanPageField(listArray[current])
             } else {
                 val bundle =Bundle()
-                bundle.putInt("current",2)
+                bundle.putInt("current",0)
                 findNavController().navigate(R.id.shoulderTypeBroad,bundle)
             }
         }
@@ -124,7 +122,7 @@ class PhaseOfWomanHood : Fragment(){
 
     }
 
-    private fun getSelectedItem(): RecyclerViewItem.Type?  {
+    private fun getSelectedItem(): RecyclerViewItem.Type? {
         return listArray[current].Type.find { it.default }
     }
 
@@ -149,16 +147,5 @@ class PhaseOfWomanHood : Fragment(){
           }
       }
     }
-
-
-
-//   override fun boxClicked(position:Int){
-//       listArray[current].Type.forEach {
-//           it.default=false
-//       }
-//       listArray[current].Type[position].default=true
-//       recyclerViewAdaptor.listItems = listArray[current].Type
-//   }
-
 
 }

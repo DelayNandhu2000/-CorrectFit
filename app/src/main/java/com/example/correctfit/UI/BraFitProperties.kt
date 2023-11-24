@@ -1,5 +1,6 @@
 package com.example.correctfit.UI
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,15 +18,16 @@ import com.example.correctfit.Retrofit.AuthInterface
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentBraFitPropertiesBinding
 import com.example.correctfit.response.RecyclerViewItem
+import com.example.correctfit.utils.bustPosition
 import com.example.correctfit.utils.characterList
+import com.example.correctfit.utils.cupPosition
 import com.example.correctfit.utils.digitList
-
+import com.example.correctfit.utils.userData
 
 class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBinding,AuthRepository>() {
 
-    private var bandSelectedValue : String ?= null
-    private var hookSelectedValue : String ?= null
-    private var cupSelectedValue : String ?= null
+
+    private var finalSize : String ?= null
     override fun getViewModel()=AuthViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -40,6 +42,8 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
     var currentType = 0
 
 
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -117,7 +121,7 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                     )
             ),
             RecyclerViewItem.Data(
-                "what is your Placement type", Type = arrayListOf(
+                "How does the strap fit?", Type = arrayListOf(
                     RecyclerViewItem.Type(
                         "Breast have no space between them",
                         type = "DIGS IN",
@@ -140,6 +144,8 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                     )
             )
         )
+        currentType = array[current].Type.indexOfFirst { it.default}
+        binding.seekBar.progress = if(currentType ==0) 0 else 10
 
         val listSize = array.size
         showFiled(array[current])
@@ -149,72 +155,15 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
             if (current != listSize - 1) {
                 when(current){
                     0->{
-                        bandSelectedValue = array[current].Type[currentType].toString()
+                        userData.bandSelectedValue = array[current].Type[currentType].type
                     }
                     1-> {
-                        hookSelectedValue = array[current].Type[currentType].toString()
-                        when(bandSelectedValue){
-                            "LOOSENESS"->{
-                                if(hookSelectedValue == "TIGHTEST"){
-                                    bustPosition?.let {
-                                        it-1
-                                    }
-
-                                    cupPosition?.let {
-                                        it+1
-                                    }
-                                }
-                                Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
-                            }
-                            "TIGHTNESS"->{
-                                if(hookSelectedValue == "LOOSEST"){
-                                    bustPosition?.let {
-                                        it+1
-                                    }
-
-                                    cupPosition?.let {
-                                        it-1
-                                    }
-
-                                    Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
-                                }
-                            }
-                        }
+                        userData.hookSelectedValue = array[current].Type[currentType].type
                     }
                   2-> {
-                      cupSelectedValue = array[current].Type[currentType].toString()
-                      if(bandSelectedValue == "LOOSENESS" && hookSelectedValue == "TIGHTEST"){
-
-                          when(cupSelectedValue){
-                              "SPILLAGE" -> {
-                                  cupPosition?.let {
-                                      it+1
-                                  }
-
-                                  Log.e("band Size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!] )
-                              }
-
-                              "GAPING"->{
-                                  cupPosition?.let {
-                                      it-1
-                                  }
-                              }
-
-                          }
-
-                      }
-//                      when(bandSelectedValue){
-//                          "LOOSENESS"->{
-//
-//                              if(array[current].Type[currentType].toString() == "TIGHTEST"){
-//                                  if(array[current].Type[])
-//                              }
-//                          }
-//                      }
+                      userData.cupSelectedValue = array[current].Type[currentType].type
                   }
                 }
-                val bundle =Bundle()
-                bundle.putString("selectValue", bandSelectedValue.toString())
                 current++
                 currentType = 0
                 binding.seekBar.max = (array[current].Type.size - 1) * 10
@@ -223,9 +172,122 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
             } else {
+                userData.strapSelectedValue = array[current].Type[currentType].type
+
+                when(userData.bandSelectedValue){
+                    "LOOSENESS"->{
+                        when(userData.hookSelectedValue){
+                            "TIGHTEST"->{
+                                bustPosition=bustPosition?.let {
+                                    it-1
+                                }
+
+                                cupPosition=cupPosition?.let {
+                                    it+1
+                                }
+
+                                when(userData.cupSelectedValue){
+                                    "SPILLAGE"->{
+                                        cupPosition =cupPosition?.let {
+                                            it+1
+                                        }
+                                    }
+                                    "GAPING"->{
+                                        cupPosition = cupPosition?.let {
+                                            it-1
+                                        }
+                                    }
+                                    "PERFECT"->{}
+                                }
+
+                            }
+                            "MIDDLE"->{
+                                when(userData.cupSelectedValue){
+                                    "SPILLAGE"->{
+                                        cupPosition =cupPosition?.let {
+                                            it+1
+                                        }
+                                    }
+                                    "GAPING"->{
+                                        cupPosition = cupPosition?.let {
+                                            it-1
+                                        }
+                                    }
+                                    "PERFECT"->{}
+                                }
+                            }
+                            "LOOSEST"->{
+
+                                bustPosition=bustPosition?.let {
+                                    it-1
+                                }
+
+                                cupPosition=cupPosition?.let {
+                                    it+1
+                                }
+                                when(userData.cupSelectedValue){
+                                    "SPILLAGE"->{
+                                        cupPosition =cupPosition?.let {
+                                            it+1
+                                        }
+                                    }
+                                    "GAPING"->{
+                                        cupPosition = cupPosition?.let {
+                                            it-1
+                                        }
+                                    }
+                                    "PERFECT"->{}
+                                }
+                            }
+                        }
+                    }
+                    "FIT WELL"->{
+                        when(userData.cupSelectedValue){
+                            "SPILLAGE"->{
+                                cupPosition =cupPosition?.let {
+                                    it+1
+                                }
+                            }
+                            "GAPING"->{
+                                cupPosition = cupPosition?.let {
+                                    it-1
+                                }
+                            }
+                            "PERFECT"->{}
+                        }
+                    }
+                    "TIGHTNESS"->{
+
+                        if(userData.hookSelectedValue == "LOOSEST") {
+                            bustPosition = bustPosition?.let {
+                                it + 1
+                            }
+
+                            cupPosition = cupPosition?.let {
+                                it - 1
+                            }
+                        }
+                        when(userData.cupSelectedValue){
+                            "SPILLAGE"->{
+                                cupPosition =cupPosition?.let {
+                                    it+1
+                                }
+                            }
+                            "GAPING"->{
+                                cupPosition = cupPosition?.let {
+                                    it-1
+                                }
+                            }
+                            "PERFECT"->{}
+                        }
+                    }
+                }
+                  finalSize = digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!]
+                  Log.e("final size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!])
                   val bundle =Bundle()
                   bundle.putInt("current",1)
-                findNavController().navigate(R.id.doYouKnowCurrentSize,bundle)
+                  bundle.putString("finalSize",finalSize)
+                  findNavController().navigate(R.id.doYouKnowCurrentSize,bundle)
             }
 
         }
@@ -239,6 +301,7 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
             }else{
+
                 findNavController().popBackStack()
             }
 
@@ -252,38 +315,32 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
 
                 when (typeSize) {
                     3 -> {
-                        currentType = if (progress < 9) {
+                        currentType = if (progress < 5) {
                             0
-                        } else if (progress < 19) {
+                        } else if (progress < 15) {
                             1
                         } else {
                             2
                         }
                     }
 
-                    4 -> {
+                    3 -> {
                         currentType = if (progress < 5) {
                             0
-                        } else if (progress < 8) {
+                        } else if (progress < 15) {
                             1
-                        } else if (progress < 16) {
-                            2
                         } else {
-                            3
+                            2
                         }
                     }
 
-                    5 -> {
+                    3 -> {
                         currentType = if (progress < 5) {
                             0
-                        } else if (progress < 20) {
+                        } else if (progress < 15) {
                             1
-                        } else if (progress < 30) {
-                            2
-                        } else if (progress < 40) {
-                            3
                         } else {
-                            4
+                            2
                         }
                     }
                 }
@@ -298,20 +355,24 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Handle touch stop if needed
+                if(seekBar?.progress!! < 5){
+                    binding.seekBar.progress = 0
+                } else if(seekBar.progress <15){
+                    binding.seekBar.progress =10
+                }else {
+                    binding.seekBar.progress=20
+                }
             }
         })
 
 
     }
 
-
     private fun setType(type: List<RecyclerViewItem.Type>) {
         binding.changeType1.text = type[0].type
         binding.changeType2.text = type[1].type
         binding.changeType3.text = type[2].type
     }
-
     private fun showTypeChange(type: RecyclerViewItem.Type) {
         binding.TypeNames.text = type.type
         binding.discriptionNames.text = type.description
@@ -325,7 +386,6 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
         when (currentType) {
             0 -> {
                 binding.changeType1.apply {
-                    typeface = typeface
                     setTextColor(colorSelected)
                 }
                 binding.changeType2.apply {
@@ -347,7 +407,6 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                     setTextColor(colorUnSelected)
                 }
                 binding.changeType2.apply {
-                    typeface =typeface
                     setTextColor(colorSelected)
                 }
                 binding.changeType3.apply {
@@ -369,7 +428,6 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                     setTextColor(colorUnSelected)
                 }
                 binding.changeType3.apply {
-                    typeface=typeface
                     setTextColor(colorSelected)
                 }
 

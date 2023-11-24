@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +11,7 @@ import com.example.correctfit.R
 import com.example.correctfit.RecycleViewMangement.RecyclerViewAdapter
 import com.example.correctfit.databinding.FragmentDoYouKnowCurrentSizeBinding
 import com.example.correctfit.response.RecyclerViewItem
-
+import com.example.correctfit.utils.userData
 
 class DoYouKnowCurrentSize : Fragment() {
       private lateinit var listArray: ArrayList<RecyclerViewItem.Data>
@@ -63,14 +61,13 @@ class DoYouKnowCurrentSize : Fragment() {
         binding.womenButtonBack.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("current",1)
-            findNavController().navigate(R.id.phaseOfWomanHood,bundle)
+            //
+//            bustPosition = calculateBustPosition
+//            cupPosition= calculateCupPosition
+
+            findNavController().popBackStack()
         }
-
-
-
-
     }
-
     private fun showWomanPageField(data: RecyclerViewItem.Data) {
         binding.CurrentSizeTitle.text=data.Title
         binding.CurrentSizeRecycle.apply {
@@ -94,11 +91,15 @@ class DoYouKnowCurrentSize : Fragment() {
                             1 -> findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_measureYourSelf)
                         }
                     } else if(current !=0){
+                       userData. finalResult = arguments?.getString("finalSize")
                         val bundle=Bundle()
+                        bundle.putString("braSize", userData.finalResult)
                         bundle.putInt("current",1)
                         when(position){
                             0->findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_measureYourSelf,bundle)
-                            1->findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_finalResult2)
+                            1->{
+                                findNavController().navigate(R.id.action_doYouKnowCurrentSize_to_finalResult2,bundle)
+                            }
                         }
                     }
                 }

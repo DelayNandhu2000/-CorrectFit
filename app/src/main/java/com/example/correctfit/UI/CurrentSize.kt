@@ -1,5 +1,6 @@
 package com.example.correctfit.UI
 
+
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -18,16 +19,14 @@ import com.example.correctfit.Retrofit.AuthInterface
 import com.example.correctfit.Retrofit.Resource
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentCurrentSizeBinding
+import com.example.correctfit.utils.bustPosition
 import com.example.correctfit.utils.characterList
+import com.example.correctfit.utils.cupPosition
 import com.example.correctfit.utils.digitList
+import com.example.correctfit.utils.userData
 
-var bustPosition:Int ?= null
-var cupPosition:Int ?=null
+
 class CurrentSize : BaseFragment<AuthViewModel, FragmentCurrentSizeBinding, AuthRepository>() {
-
-
-    //    private var arrayBust = mutableListOf<String>()
-//    private var arrayCup = mutableListOf<String>()
     var data: List<String>? = null
     private lateinit var recyclerViewBustAdaptor: RecyclerViewAdapter
     private lateinit var recyclerViewCupAdaptor: RecyclerViewAdapter
@@ -46,7 +45,17 @@ class CurrentSize : BaseFragment<AuthViewModel, FragmentCurrentSizeBinding, Auth
         super.onViewCreated(view, savedInstanceState)
         val bundle = Bundle()
         binding.appButtonNext.setOnClickListener {
-            findNavController().navigate(R.id.action_currrentSize_to_braFitProperties,bundle)
+            if(braSize==null){
+                Toast.makeText(requireContext(), "Please select your bra size", Toast.LENGTH_SHORT).show()
+            }else if(cupSize == null){
+                Toast.makeText(requireContext(), "please select you cup size", Toast.LENGTH_SHORT).show()
+            }
+            else {
+
+                userData.currentBandSize = bustPosition
+                userData.currentCupSize = cupPosition
+                findNavController().navigate(R.id.action_currrentSize_to_braFitProperties, bundle)
+                 }
         }
         binding.appButtonBack.setOnClickListener {
             findNavController().popBackStack()
@@ -71,8 +80,13 @@ class CurrentSize : BaseFragment<AuthViewModel, FragmentCurrentSizeBinding, Auth
                         }?.distinct()
 
                          characterList = data?.map {
-                            it.filter { it.isLetter() }
-                        }?.distinct()
+                             it.filter { it.isLetter() }
+                         }?.distinct() as ArrayList<String>?
+
+                        characterList?.apply {
+                            remove("AA")
+                            add(0,"AA")
+                        }
 
                         Log.e("data list", digitList.toString())
                         Log.e("data list", characterList.toString())
@@ -111,53 +125,28 @@ class CurrentSize : BaseFragment<AuthViewModel, FragmentCurrentSizeBinding, Auth
             setHasFixedSize(true)
         }
         itemClickListener()
-
-
     }
 
-    //    private fun setData() {
-//        binding.braSizeRecycler.apply {
-//            recyclerViewAdapter.label = "bust"
-//            recyclerViewAdapter.item = data?: emptyList()
-//            adapter = recyclerViewAdapter
-//            setHasFixedSize(true)
-//
-//        }
-//
-//        binding.CupSizeRecycler.apply {
-//            recyclerViewCupAdaptor.label = "cup"
-//            recyclerViewAdapter.item = data?: emptyList()
-//            adapter = recyclerViewAdapter
-//            setHasFixedSize(true)
-//
-//        }
-//    }
+
+    @SuppressLint("SetTextI18n")
     private var braSize: String?= null
     private var cupSize: String?= null
-    @SuppressLint("SetTextI18n")
     private fun itemClickListener() {
         recyclerViewBustAdaptor.itemClickListener = { view, item, position ->
             braSize = item.toString()
-            bustPosition =position
+           bustPosition = position
             updateTotalSizeText()
-            if(cupSize ==null){
-                Toast.makeText(requireContext(), "please select cup size", Toast.LENGTH_SHORT).show()
-            }
         }
         recyclerViewCupAdaptor.itemClickListener = { view, item, position ->
               cupSize =item.toString()
               cupPosition = position
               updateTotalSizeText()
-            if(braSize == null){
-                Toast.makeText(requireContext(), "Please select bra size", Toast.LENGTH_SHORT).show()
-            }
+
         }
-
     }
-
     @SuppressLint("SetTextI18n")
     private fun updateTotalSizeText() {
-        if (braSize != null && cupSize != null) {
+        if (braSize != null && cupSize != null){
             binding.totalSize.text = "$braSize$cupSize"
         }
     }
@@ -173,23 +162,10 @@ class CurrentSize : BaseFragment<AuthViewModel, FragmentCurrentSizeBinding, Auth
     }
 
 
+
 }
 
 
-//                      binding.braSizeRecycler.apply {
-//                          recyclerViewAdapter.label = "bust"
-//                          recyclerViewAdapter.item = data?: emptyList()
-//                          adapter = recyclerViewAdapter
-//                          setHasFixedSize(true)
-//                      }
-//
-//                      binding.CupSizeRecycler.apply {
-//                          recyclerViewAdapter.label = "cup"
-//                          recyclerViewAdapter.item = data?: emptyList()
-//                          adapter = recyclerViewAdapter
-//                          setHasFixedSize(true)
-//
-//                      }
 
 
 

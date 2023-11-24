@@ -1,12 +1,11 @@
 package com.example.correctfit.UI
 
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.correctfit.Base.BaseFragment
 import com.example.correctfit.R
@@ -21,7 +20,7 @@ import com.example.correctfit.databinding.FragmentCurrentBrandBinding
 class CurrentBrand : BaseFragment<AuthViewModel,FragmentCurrentBrandBinding,AuthRepository>() {
 
 
-    lateinit var recyclerViewAdaptor : RecyclerViewAdapter
+    private lateinit var recyclerViewAdaptor : RecyclerViewAdapter
     var data: List<String>?= null
     override fun getViewModel() = AuthViewModel::class.java
 
@@ -35,9 +34,13 @@ class CurrentBrand : BaseFragment<AuthViewModel,FragmentCurrentBrandBinding,Auth
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.appButtonNext.setOnClickListener {
-          findNavController().navigate(R.id.action_currentBrand_to_currrentSize)
-        }
+            binding.appButtonNext.setOnClickListener{
+                findNavController().navigate(R.id.action_currentBrand_to_currrentSize)
+           }
+//            else{
+//                Toast.makeText(requireContext(), "Please select your current brand", Toast.LENGTH_SHORT).show()
+//            }
+
 
         initView()
         observers()
@@ -66,7 +69,6 @@ class CurrentBrand : BaseFragment<AuthViewModel,FragmentCurrentBrandBinding,Auth
             }
         }
     }
-
     private fun itemClickListener() {
         recyclerViewAdaptor.itemClickListener = { view, item, position ->
             recyclerViewAdaptor.item = data?:emptyList()

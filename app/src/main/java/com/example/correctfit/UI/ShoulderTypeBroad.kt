@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.correctfit.R
 import com.example.correctfit.databinding.FragmentShoulderTypeBroadBinding
 import com.example.correctfit.response.RecyclerViewItem
+import com.example.correctfit.utils.userData
 
 
+var previousSelectValue :String?=null
 class ShoulderTypeBroad : Fragment() {
     private lateinit var newRecyclerView: RecyclerView
     lateinit var binding: FragmentShoulderTypeBroadBinding
@@ -112,6 +114,7 @@ class ShoulderTypeBroad : Fragment() {
         currentType = array[current].Type.indexOfFirst { it.default}
         binding.seekBar.progress = if(currentType ==0) 0 else 10
 
+
         val listSize = array.size
         showFiled(array[current])
         showTypeChange(array[current].Type[currentType])
@@ -119,18 +122,26 @@ class ShoulderTypeBroad : Fragment() {
 
         binding.appButtonNext.setOnClickListener {
             if (current != listSize - 1) {
+                when(current){
+                    0-> userData.shoulderSelectedValue = array[current].Type[currentType].type
+
+                    1-> userData.bustSelectedValue = array[current].Type[currentType].type
+                }
                 current++
-                currentType = array[current].Type.indexOfFirst { it.default}
                 binding.seekBar.max = (array[current].Type.size - 1) * 10
                 binding.seekBar.progress = 0
                 showFiled(array[current])
                 showTypeChange(array[current].Type[currentType])
                 setType(array[current].Type)
             } else {
+                when(current) {
+                    2 -> userData.placementSelectedValue = array[current].Type[currentType].type
+                }
                 findNavController().navigate(R.id.action_shoulderTypeBroad_to_phaseOfWomanHood)
             }
 
         }
+        previousSelectValue = array[current].Type[currentType].type
         binding.appButtonBack.setOnClickListener {
             if (current != 0) {
                 current--
@@ -152,38 +163,32 @@ class ShoulderTypeBroad : Fragment() {
 
                 when (typeSize) {
                     3 -> {
-                        currentType = if (progress < 9) {
+                        currentType = if (progress < 5) {
                             0
-                        } else if (progress < 19) {
+                        } else if (progress < 15) {
                             1
                         } else {
                             2
                         }
                     }
 
-                    4 -> {
+                    3 -> {
                         currentType = if (progress < 5) {
                             0
-                        } else if (progress < 8) {
+                        } else if (progress < 15) {
                             1
-                        } else if (progress < 16) {
-                            2
                         } else {
-                            3
+                            2
                         }
                     }
 
-                    5 -> {
+                    3 -> {
                         currentType = if (progress < 5) {
                             0
-                        } else if (progress < 20) {
+                        } else if (progress < 15) {
                             1
-                        } else if (progress < 30) {
-                            2
-                        } else if (progress < 40) {
-                            3
                         } else {
-                            4
+                            2
                         }
                     }
                 }
@@ -198,7 +203,15 @@ class ShoulderTypeBroad : Fragment() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                // Handle touch stop if needed
+//                Toast.makeText(requireContext(), "calledx", Toast.LENGTH_SHORT).show()
+                if(seekBar?.progress!! < 5){
+                    binding.seekBar.progress = 0
+                } else if(seekBar.progress <15){
+                    binding.seekBar.progress =10
+                }else {
+                    binding.seekBar.progress=20
+                }
+
             }
         })
 
@@ -210,7 +223,6 @@ class ShoulderTypeBroad : Fragment() {
         binding.changeType2.text = type[1].type
         binding.changeType3.text = type[2].type
     }
-
     private fun showTypeChange(type: RecyclerViewItem.Type) {
         binding.TypeNames.text = type.type
         binding.discriptionNames.text = type.description
@@ -224,7 +236,6 @@ class ShoulderTypeBroad : Fragment() {
         when (currentType) {
             0 -> {
                     binding.changeType1.apply {
-                        typeface = typeface
                         setTextColor(colorSelected)
                     }
                     binding.changeType2.apply {
@@ -246,7 +257,6 @@ class ShoulderTypeBroad : Fragment() {
                      setTextColor(colorUnSelected)
                  }
                 binding.changeType2.apply {
-                    typeface =typeface
                     setTextColor(colorSelected)
                 }
                 binding.changeType3.apply {
@@ -268,7 +278,6 @@ class ShoulderTypeBroad : Fragment() {
                     setTextColor(colorUnSelected)
                 }
                 binding.changeType3.apply {
-                    typeface=typeface
                     setTextColor(colorSelected)
                 }
 
@@ -285,3 +294,10 @@ class ShoulderTypeBroad : Fragment() {
         binding.appButtonBack.isVisible = current != 0
     }
 }
+
+
+//when(current){
+//    0-> selectedValue = array[current].Type[currentType].type
+//    1->selectedValue = array[current].Type[currentType].type
+//    2->selectedValue = array[current].Type[currentType].type
+//}
