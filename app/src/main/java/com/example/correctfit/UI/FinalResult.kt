@@ -13,6 +13,7 @@ import com.example.correctfit.Base.BaseFragment
 import com.example.correctfit.R
 import com.example.correctfit.Repository.AuthRepository
 import com.example.correctfit.Retrofit.AuthInterface
+import com.example.correctfit.Retrofit.Resource
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentFinalResultBinding
 import com.example.correctfit.utils.getSisterSize
@@ -52,12 +53,31 @@ class FinalResult : BaseFragment<AuthViewModel, FragmentFinalResultBinding, Auth
             findNavController().navigate(R.id.shoulderTypeBroad)
 
         }
+
+        viewModel.addUserResponse.observe(viewLifecycleOwner){
+            when(it){
+                is Resource.Success->{
+                    if(it.value.status){
+                            findNavController().navigate(R.id.shoulderTypeBroad)
+                    }
+                }
+
+                else -> {}
+            }
+        }
         binding.ShopNow.setOnClickListener {
-            val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse("https://www.shyaway.com/bra-online/${userData.braSize}-bra/")
-            )
-            startActivity(browserIntent)
+
+            if (arguments?.getString("url") != null) {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(arguments?.getString("url")))
+                startActivity(browserIntent)
+            } else {
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.shyaway.com/bra-online/${userData.braSize}-bra/")
+                )
+                startActivity(browserIntent)
+            }
         }
     }
 

@@ -15,7 +15,6 @@ class Effect(context : Context){
 var flager = false
 var destroy = false
 var exitControl = false
-
 var androidId:String?=null
 fun View.startAnimations(animation: Animation, onEndListener: () -> Unit) {
     animation.setAnimationListener(object : Animation.AnimationListener {
@@ -41,7 +40,7 @@ fun String.getSisterSize(): String {
 
     val cup = if (cup1.length == 1) {
         singleOrNull { !it.isDigit() }?.let { char ->
-            if (char.isLetter() && (char != 'A')) (char + 1).toString() else "AA"
+            if (char.isLetter() && (char != 'A')) (char - 1).toString() else "AA"
         } ?: ""
     } else {
         when (cup1) {
@@ -69,3 +68,4 @@ var currentSelected1 = -1
 var previousSelected1 = -1
 var currentSelectedCup = -1
 var previousSelectedCup = -1
+

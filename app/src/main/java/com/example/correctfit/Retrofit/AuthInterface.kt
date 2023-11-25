@@ -29,6 +29,4 @@ interface AuthInterface {
     suspend fun insert(@HeaderMap headers: Map<String, String>,@Body userData: UserData): InsertResponse
 
 
-
-
 }

@@ -9,26 +9,20 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.0462585" />
 
     <TextView
         android:id="@+id/MeasureYourSelf"
         style="@style/WomanHoodTitle"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Measure Yourself"
+        android:text="@string/measure_yourself"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline2" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.123809524" />
 
     <ImageView
@@ -43,18 +37,12 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_end="402dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/MeasureRecycle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="16dp"
+        style="@style/MeasureRecycle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MeasureIMG"
@@ -63,9 +51,7 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.76" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,16 +66,10 @@
 
         <EditText
             android:id="@+id/BandEG"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_34sdp"
+            style="@style/EditText"
             android:background="@drawable/womenhoodboxnotselectedstyle"
-            android:fontFamily="@font/inherregular"
-            android:gravity="center"
+            android:fontFamily="@font/inter_regular"
             android:hint="Band (eg.80cm)"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textColorHint="#FF566A"
-            android:textSize="@dimen/_10sdp"
             app:layout_constraintEnd_toStartOf="@+id/BustEG"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -98,43 +78,25 @@
 
         <TextView
             android:id="@+id/BandError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/interlight"
-            android:textColor="#FF566A"
-            android:textSize="@dimen/_9sdp"
-            android:visibility="gone"
+            style="@style/SizeWarnings"
             app:layout_constraintEnd_toEndOf="@+id/BandEG"
             app:layout_constraintStart_toStartOf="@+id/BandEG"
             app:layout_constraintTop_toBottomOf="@+id/BandEG" />
 
         <EditText
             android:id="@+id/BustEG"
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_34sdp"
+            style="@style/EditText"
             android:layout_marginStart="16dp"
             android:background="@drawable/womenhoodboxnotselectedstyle"
-            android:fontFamily="@font/inherregular"
-            android:gravity="center"
+            android:fontFamily="@font/inter_regular"
             android:hint="Bust (eg.95cm)"
-            android:inputType="number"
-            android:maxLength="3"
-            android:textColorHint="#FF566A"
-            android:textSize="@dimen/_10sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/BandEG"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/BustError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/interlight"
-            android:textColor="#FF566A"
-            android:textSize="@dimen/_9sdp"
-            android:visibility="gone"
+            style="@style/SizeWarnings"
             app:layout_constraintEnd_toEndOf="@+id/BustEG"
             app:layout_constraintStart_toStartOf="@+id/BustEG"
             app:layout_constraintTop_toBottomOf="@id/BustEG" />
@@ -145,28 +107,17 @@
 
     <EditText
         android:id="@+id/hip"
-        android:layout_width="@dimen/_120sdp"
-        android:layout_height="@dimen/_34sdp"
+        style="@style/EditText"
         android:background="@drawable/womenhoodboxnotselectedstyle"
-        android:fontFamily="@font/inherregular"
-        android:gravity="center"
+        android:fontFamily="@font/inter_regular"
         android:hint="Hip (eg.80cm)"
-        android:inputType="number"
-        android:maxLength="3"
-        android:textColorHint="#FF566A"
-        android:textSize="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline6" />
 
     <TextView
         android:id="@+id/HipError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textColor="#FF566A"
-        android:textSize="@dimen/_9sdp"
-        android:visibility="gone"
+        style="@style/SizeWarnings"
         app:layout_constraintEnd_toEndOf="@+id/hip"
         app:layout_constraintStart_toStartOf="@+id/hip"
         app:layout_constraintTop_toBottomOf="@+id/hip" />
@@ -190,11 +141,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/womanButtonNext"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowforward"
+            style="@style/ButtonNext"
+            android:background="@drawable/button_shape"
+            android:drawableStart="@drawable/arrow_forward"
             android:paddingStart="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -203,11 +152,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/womenButtonBack"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowback"
+            style="@style/ButtonBack"
+            android:background="@drawable/button_shape"
+            android:drawableStart="@drawable/arrow_back"
             android:paddingStart="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/womanButtonNext"
@@ -224,7 +171,7 @@
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_40sdp"
         android:background="@drawable/skip_background"
-        android:fontFamily="@font/inherregular"
+        android:fontFamily="@font/inter_regular"
         android:text="@string/skip"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@+id/MeasureYourSelf"

@@ -24,75 +24,50 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.26938775" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:fontFamily="@font/inherregular"
-        android:gravity="center"
+        style="@style/logoDescription"
         android:text="@string/based_on_the_information_you_provided_n_we_recommend"
-        android:textColor="#858585"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.3782313" />
 
     <TextView
         android:id="@+id/PerFitSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/intersemibold"
-        android:gravity="center"
-        android:lineHeight="@dimen/_18sdp"
+        style="@style/perFitSize"
         android:text="@string/the_per_fit_size"
-        android:textColor="#222222"
-        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline10" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/inherregular"
-        android:text="Final Result"
+        style="@style/perFitDescription"
+        android:text="@string/final_result"
         android:textColor="#7E7E7E"
-        android:textSize="@dimen/_12sdp"
-        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="@+id/PerFitSize"
         app:layout_constraintStart_toStartOf="@+id/PerFitSize"
         app:layout_constraintTop_toBottomOf="@id/PerFitSize" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.4612245" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="155dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/_50sdp"
         android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:elevation="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,139 +76,131 @@
         app:strokeWidth="1dp">
 
         <LinearLayout
-            android:id="@+id/ResultBord"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="vertical"
+            android:weightSum="2">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:id="@+id/ResultBord"
+                android:layout_width="match_parent"
+                android:layout_height="110dp"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp"
-                    android:background="@drawable/backgroundcircle"
-                    android:padding="4dp"
-                    android:scaleType="center"
-                    android:src="@drawable/finalresultimg" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/ingter"
-                    android:text="@string/bra_size"
-                    android:textColor="#3D3D3D"
-                    android:textSize="@dimen/_10ssp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:fontFamily="@font/inter"
+                        android:textStyle="bold"
+                        android:text="@string/bra_size"
+                        android:textColor="#3D3D3D"
+                        android:textSize="@dimen/_10ssp" />
 
-                <TextView
-                    android:id="@+id/BraSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/intersemibold"
-                    android:text="34D"
-                    android:textColor="#FF566A"
-                    android:textSize="@dimen/_17ssp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/BraSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:textColor="#FF566A"
+                        android:text="34DD"
+                        android:textSize="@dimen/_17ssp"
+                        android:textStyle="bold" />
 
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#FFE0E4" />
+
+
+
+                <LinearLayout
+                    android:id="@+id/pantySize"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/inter"
+                        android:text="@string/panty_size"
+                        android:textColor="#3D3D3D"
+                        android:textSize="@dimen/_10ssp" />
+
+                    <TextView
+                        android:id="@+id/PantySize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:text="L"
+                        android:textColor="#FF566A"
+                        android:textSize="@dimen/_17ssp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
-
             <View
-                android:layout_width="2dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="80dp"
-                android:background="#FFE0E4" />
-
+                android:layout_width="200dp"
+                android:layout_height="2dp"
+                android:background="#FFE0E4"
+                android:layout_marginStart="40dp">
+            </View>
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp"
-                    android:background="@drawable/backgroundcircle"
-                    android:padding="4dp"
-                    android:scaleType="center"
-                    android:src="@drawable/finalresultimg" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/ingter"
-                    android:lineHeight="15sp"
-                    android:text="SISTER SIZE"
-                    android:textColor="#3D3D3D"
-                    android:textSize="@dimen/_10ssp" />
-
-                <TextView
-                    android:id="@+id/SisterSize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/intersemibold"
-                    android:text="34D"
-                    android:textColor="#FF566A"
-                    android:textSize="@dimen/_17ssp"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:layout_width="65dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/inter"
+                        android:textStyle="bold"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="@dimen/_70sdp"
+                        android:text="SISTER SIZE"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="12dp"
+                    android:layout_height="45dp"
+                    android:layout_weight="1">
+                    <TextView
+                        android:id="@+id/SisterSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="34DD"
+                        android:textStyle="bold"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/inter_semi_bold"
+                        android:layout_marginTop="10dp"
+                        android:textColor="#FF566A"/>
+                </LinearLayout>
             </LinearLayout>
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="80dp"
-                android:background="#FFE0E4" />
-
-            <LinearLayout
-                android:id="@+id/pantySize"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp"
-                    android:background="@drawable/backgroundcircle"
-                    android:padding="4dp"
-                    android:scaleType="center"
-                    android:src="@drawable/finalresultimg" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/ingter"
-                    android:text="@string/panty_size"
-                    android:textColor="#3D3D3D"
-                    android:textSize="@dimen/_10ssp" />
-
-                <TextView
-                    android:id="@+id/PantySize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/intersemibold"
-                    android:text="L"
-                    android:textColor="#FF566A"
-                    android:textSize="@dimen/_17ssp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
         </LinearLayout>
+
+
     </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.Guideline

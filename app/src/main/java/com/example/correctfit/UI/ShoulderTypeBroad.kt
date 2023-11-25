@@ -229,7 +229,7 @@ class ShoulderTypeBroad : Fragment() {
         type.image?.let { binding.BroadShoulderImg.setImageResource(it) }
 
         var typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
-        val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.ingter)
+        val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.inter)
 
         val colorSelected = ContextCompat.getColor(requireContext(),R.color.ourBlack)
         val colorUnSelected = ContextCompat.getColor(requireContext(),R.color.gray)

@@ -1,14 +1,14 @@
 package com.example.correctfit.UI
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.correctfit.R
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.correctfit.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -36,5 +36,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
       onBackPressedDispatcher.addCallback(this,callback)
+    }
+
+    companion object{
+        lateinit var progress : ConstraintLayout
+        @SuppressLint("StaticFieldLeak")
+        var contexts: Context? = null
+
     }
 }

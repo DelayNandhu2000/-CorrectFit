@@ -1,5 +1,6 @@
 package com.example.correctfit.Repository
 
+import android.util.Log
 import com.example.correctfit.Retrofit.AuthInterface
 import com.example.correctfit.Retrofit.RequestClass
 import com.example.correctfit.model.UserData
@@ -16,7 +17,8 @@ class AuthRepository(private  val apiService: AuthInterface):SafeApiCall{
     suspend fun getTotalSize()=safeApiCall {
         apiService.getTotalSize()
     }
-    suspend fun addUser(header:Map<String,String> ,userData: UserData)= safeApiCall{
+    suspend fun adUser(header:Map<String,String> ,userData: UserData)= safeApiCall{
+        Log.e("userData", userData.toString())
         apiService.insert(header,userData)
     }
 

@@ -19,7 +19,7 @@
         style="@style/WomanHoodTitle"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Which phase of woman are u in?"
+        android:text="@string/which_phase_of_woman_are_u_in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/GuidMainText" />
@@ -27,16 +27,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/womanHoodRecycle"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="52dp"
+        style="@style/phaseRecycle"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/WomenHoodmainTiltle"
-        app:layout_constraintVertical_bias="0.0"
-        tools:itemCount="5"
         tools:listitem="@layout/phaseofwomenhood" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,11 +45,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/womanButtonNext"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowforward"
+            style="@style/ButtonNext"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -63,11 +55,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/womenButtonBack"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowback"
+            style="@style/ButtonBack"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/womanButtonNext"

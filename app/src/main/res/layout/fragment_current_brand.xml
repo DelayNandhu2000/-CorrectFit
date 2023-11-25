@@ -17,8 +17,6 @@
     <TextView
         android:id="@+id/textView2"
         style="@style/MainTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/which_brand_are_you_currently_buying_n_you_are_lingerie_from"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,10 +25,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_55sdp"
-        android:layout_marginStart="156dp"
-        android:layout_marginEnd="156dp"
+        style="@style/ButtonConstrain"
         android:layout_marginBottom="@dimen/_40sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,11 +34,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appButtonNext"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowforward"
+            style="@style/ButtonNext"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -52,12 +44,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appButtonBack"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginEnd="24dp"
+            style="@style/ButtonBack"
             android:visibility="gone"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowback"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/appButtonNext"
@@ -66,19 +55,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_6sdp"
-        android:layout_marginEnd="@dimen/_6sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        style="@style/brandRecycler"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:listitem="@layout/item_brand"
-        app:spanCount="2" />
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

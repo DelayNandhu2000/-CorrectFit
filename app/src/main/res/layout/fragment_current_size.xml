@@ -9,16 +9,12 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.06802721" />
 
     <TextView
         android:id="@+id/textView3"
         style="@style/MainTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/what_is_your_current_bra_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,9 +22,7 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_end="160dp" />
 
     <TextView
@@ -39,27 +33,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <TextView
         android:id="@+id/totalSize"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/intersemibold"
+        style="@style/oldBraSize"
         android:text="_"
-        android:textColor="#FF566A"
-        android:textSize="@dimen/_17ssp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/yourBrasSize"
         app:layout_constraintStart_toStartOf="@+id/yourBrasSize"
         app:layout_constraintTop_toBottomOf="@id/yourBrasSize" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_55sdp"
-        android:layout_marginStart="156dp"
-        android:layout_marginEnd="156dp"
+        style="@style/ButtonConstrain"
         android:layout_marginBottom="@dimen/_32sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,11 +52,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appButtonNext"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowforward"
+            style="@style/ButtonNext"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_16sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,11 +62,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appButtonBack"
-            android:layout_width="@dimen/_48sdp"
-            android:layout_height="@dimen/_48sdp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/buttonshape"
-            android:drawableStart="@drawable/arrowback"
+            style="@style/ButtonBack"
+            android:background="@drawable/button_shape"
             android:paddingStart="@dimen/_18sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/appButtonNext"
@@ -96,23 +74,18 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.13877551" />
 
     <TextView
         android:id="@+id/Bra"
         style="@style/WomanHoodTitle"
-        android:fontFamily="@font/interlight"
-        android:text="@string/brasize"
+        android:fontFamily="@font/inter_light"
+        android:text="@string/braSize"
         android:textColor="#646464"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline16" />
-
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/BraConstrain"
@@ -126,17 +99,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/braSizeRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:layout_marginTop="4dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            style="@style/oldSizeRecycler"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/BraConstrain"
-            app:spanCount="4"
             tools:listitem="@layout/item_bra_size" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -151,32 +118,24 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/CupSizeRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
-            android:layout_marginTop="4dp"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            style="@style/oldSizeRecycler"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:spanCount="4"
             tools:listitem="@layout/item_bra_size" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        style="@style/GuidLines"
         app:layout_constraintGuide_percent="0.45" />
     <TextView
         android:id="@+id/cupSize"
         style="@style/WomanHoodTitle"
-        android:fontFamily="@font/interlight"
-        android:text="CupSize"
+        android:fontFamily="@font/inter_light"
+        android:text="@string/cupSize"
         android:textColor="#646464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

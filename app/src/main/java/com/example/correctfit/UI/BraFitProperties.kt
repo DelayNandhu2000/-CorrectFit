@@ -9,12 +9,14 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.correctfit.Base.BaseFragment
 import com.example.correctfit.R
 import com.example.correctfit.Repository.AuthRepository
 import com.example.correctfit.Retrofit.AuthInterface
+import com.example.correctfit.Retrofit.Resource
 import com.example.correctfit.ViewModel.AuthViewModel
 import com.example.correctfit.databinding.FragmentBraFitPropertiesBinding
 import com.example.correctfit.response.RecyclerViewItem
@@ -27,7 +29,6 @@ import com.example.correctfit.utils.userData
 class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBinding,AuthRepository>() {
 
 
-    private var finalSize : String ?= null
     override fun getViewModel()=AuthViewModel::class.java
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -47,7 +48,7 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        observers()
         current = arguments?.getInt("current") ?: 0
 
         val array = arrayListOf(
@@ -282,11 +283,14 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                         }
                     }
                 }
-                  finalSize = digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!]
+                userData.finalResult = digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!]
+                viewModel.addUser(userData)
                   Log.e("final size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!])
+                  Log.e("userData", userData.toString())
+
                   val bundle =Bundle()
                   bundle.putInt("current",1)
-                  bundle.putString("finalSize",finalSize)
+                  bundle.putString("finalSize", userData.finalResult)
                   findNavController().navigate(R.id.doYouKnowCurrentSize,bundle)
             }
 
@@ -368,6 +372,34 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
 
     }
 
+
+
+    private fun observers() {
+
+        viewModel.addUserResponse.observe(viewLifecycleOwner) {
+            when (it) {
+                is Resource.Success -> {
+                    MainActivity.progress.isVisible = false
+                    val bundle = Bundle()
+                    if (it.value.status) {
+                        Log.e("addUser",it.value.status.toString())
+                        bundle.putString("url", it.value.url)
+                        findNavController().navigate(R.id.action_measureYourSelf_to_finalResult2,bundle)
+                    } else {
+                        bundle.putString("url", null)
+                        findNavController().navigate(R.id.action_measureYourSelf_to_finalResult2,bundle)
+                    }
+                }
+
+                is Resource.Failure -> {
+                    MainActivity.progress.isVisible = false
+                }
+
+                else -> {}
+            }
+        }
+    }
+
     private fun setType(type: List<RecyclerViewItem.Type>) {
         binding.changeType1.text = type[0].type
         binding.changeType2.text = type[1].type
@@ -379,7 +411,7 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
         type.image?.let { binding.BroadShoulderImg.setImageResource(it) }
 
         var typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
-        val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.ingter)
+        val typeface1 = ResourcesCompat.getFont(requireContext(), R.font.inter)
 
         val colorSelected = ContextCompat.getColor(requireContext(),R.color.ourBlack)
         val colorUnSelected = ContextCompat.getColor(requireContext(),R.color.gray)

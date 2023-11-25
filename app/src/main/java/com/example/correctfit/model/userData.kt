@@ -1,7 +1,6 @@
 package com.example.correctfit.model
 
 data class UserData(
-    var selectedSize : String? = null,
     var bandSelectedValue: String? = null,
     var hookSelectedValue: String? = null,
     var cupSelectedValue: String? = null,

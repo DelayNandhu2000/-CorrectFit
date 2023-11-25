@@ -19,7 +19,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:fontFamily="@font/inherregular"
+        android:fontFamily="@font/inter_regular"
         android:text="Stand Straight and breathe normally"
         android:textColor="#858585"
         android:textSize="@dimen/_10sdp"

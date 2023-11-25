@@ -13,6 +13,14 @@
     <string name="which_brand_are_you_currently_buying_n_you_are_lingerie_from">Which brand are you currently buying \n you are lingerie from</string>
     <string name="what_is_your_current_bra_size">What is your current Bra Size ?</string>
     <string name="your_bra_size">Your Bra Size</string>
-    <string name="brasize">BraSize</string>
+    <string name="braSize">BraSize</string>
     <string name="skip">Skip</string>
+    <string name="shoulder_waist_proportionate_waist">Shoulder waist proportionate waist</string>
+    <string name="regular">REGULAR</string>
+    <string name="which_phase_of_woman_are_u_in">Which phase of woman are u in?</string>
+    <string name="measure_yourself">Measure Yourself</string>
+    <string name="sister_size">SISTER SIZE</string>
+    <string name="final_result">Final Result</string>
+    <string name="do_you_know_your_current_size">Do you know your current size</string>
+    <string name="cupSize">CupSize</string>
 </resources>

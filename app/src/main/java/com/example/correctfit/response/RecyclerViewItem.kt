@@ -8,7 +8,7 @@ sealed class RecyclerViewItem{
         val Message: String,
         val Status: Boolean
     ) : RecyclerViewItem()
-
+    @Keep
     data class Type(
         val description: String?=null,
         val image: Int?= null,
@@ -16,7 +16,7 @@ sealed class RecyclerViewItem{
         var default: Boolean = false,
     ):RecyclerViewItem()
 
-
+     @Keep
     data class Data(
         val Title: String,
         val image: Int ?= null,

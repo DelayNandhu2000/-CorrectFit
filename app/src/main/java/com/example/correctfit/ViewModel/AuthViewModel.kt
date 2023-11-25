@@ -1,5 +1,6 @@
 package com.example.correctfit.ViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,11 +53,12 @@ class AuthViewModel(private val repository:AuthRepository) :ViewModel(){
     private val _addUserResponse :MutableLiveData<Resource<InsertResponse>> = MutableLiveData()
     val addUserResponse :LiveData<Resource<InsertResponse>> get() =_addUserResponse
 
-    suspend fun addUser(userData: UserData){
+       fun addUser(userData: UserData)=viewModelScope.launch{
+           Log.e("userData", userData.toString())
         val map = HashMap<String,String>()
         map["Apikey"] = "Djh1ubi0sE9x3hLkqwVTfp1ru"
         _addUserResponse.value =Resource.Loading
-        _addUserResponse.value=repository.addUser(map,userData)
+        _addUserResponse.value=repository.adUser(map,userData)
     }
 
 }
