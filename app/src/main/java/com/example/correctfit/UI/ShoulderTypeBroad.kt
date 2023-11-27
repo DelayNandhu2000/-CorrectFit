@@ -48,7 +48,6 @@ class ShoulderTypeBroad : Fragment() {
                         type = "BROAD",
                         default = false,
                         image = R.drawable.img_shoulder_broad
-
                     ),
                     RecyclerViewItem.Type(
                         "Shoulder proportionate to waist",
