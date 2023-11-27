@@ -47,19 +47,19 @@ class ShoulderTypeBroad : Fragment() {
                         "Shoulder broader than waist",
                         type = "BROAD",
                         default = false,
-                        image = R.drawable.img_shoulder_broad
+                        image = R.drawable.shoulder_broad_new
                     ),
                     RecyclerViewItem.Type(
                         "Shoulder proportionate to waist",
                         type = "REGULAR",
                         default = true,
-                        image = R.drawable.img_ragular
+                        image = R.drawable.shoulder_regular_new
                     ),
                     RecyclerViewItem.Type(
                         "Shoulder smaller than waist",
                         type = "NARROW",
                         default = false,
-                        image = R.drawable.img_narrow
+                        image = R.drawable.sholder_narrow_new
                     )
                 )
             ),
