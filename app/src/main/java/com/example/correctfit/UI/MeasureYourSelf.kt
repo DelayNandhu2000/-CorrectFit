@@ -30,6 +30,7 @@ import com.example.correctfit.utils.startAnimations
 import com.example.correctfit.utils.userData
 
 
+
 class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBinding, AuthRepository>() {
 
     private lateinit var listArray: ArrayList<RecyclerViewItem.Data>
@@ -49,8 +50,6 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
     private var current = 0
     private var currentType = 0
     var effect: Effect? = null
-
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -79,6 +78,7 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
                 )
             )
         )
+
         userData.underBust = binding.BandEG.text.toString()
         userData.overBust = binding.BustEG.text.toString()
         userData.hip = binding.hip.text.toString()
@@ -155,6 +155,8 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
         }
 
         //Skip Action
+        if(current!=0) {
+            binding.womenButtonBack.isVisible=false
             binding.SkipButton.setOnClickListener {
                 if (arguments?.getInt("current") == null) {
                     invokeGetSizeApi()
@@ -168,6 +170,7 @@ class MeasureYourSelf : BaseFragment<AuthViewModel, FragmentMeasureYourSelfBindi
                 }
 
             }
+        }
 
         observers()
     }

@@ -42,7 +42,7 @@ class ShoulderTypeBroad : Fragment() {
 
         val array = arrayListOf(
             RecyclerViewItem.Data(
-                "what is your Shulder type", Type = arrayListOf(
+                "what is your shoulder type", Type = arrayListOf(
                     RecyclerViewItem.Type(
                         "Shoulder broader than waist",
                         type = "BROAD",

@@ -285,8 +285,8 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
                 }
                 userData.finalResult = digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!]
                 viewModel.addUser(userData)
-                  Log.e("final size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!])
-                  Log.e("userData", userData.toString())
+//                  Log.e("final size", digitList?.get(bustPosition!!)!!+ characterList!![cupPosition!!])
+//                  Log.e("userData", userData.toString())
 
                   val bundle =Bundle()
                   bundle.putInt("current",1)
@@ -408,6 +408,7 @@ class BraFitProperties : BaseFragment<AuthViewModel,FragmentBraFitPropertiesBind
     private fun showTypeChange(type: RecyclerViewItem.Type) {
         binding.TypeNames.text = type.type
         binding.discriptionNames.text = type.description
+
         type.image?.let { binding.BroadShoulderImg.setImageResource(it) }
 
         var typeface = ResourcesCompat.getFont(requireContext(), R.font.interbold)
